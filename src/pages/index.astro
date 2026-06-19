@@ -1,0 +1,363 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout>
+  <!-- NAV -->
+  <header class="fixed top-0 left-0 right-0 z-50 border-b border-[#1e1e2e] bg-[#0a0a0f]/80 backdrop-blur-md">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="font-mono text-sm font-medium text-white tracking-widest uppercase">
+        Kollmeier<span class="text-indigo-400">.</span>Systems
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-[#64748b]">
+        <a href="#leistungen" class="hover:text-white transition-colors">Leistungen</a>
+        <a href="#projekte" class="hover:text-white transition-colors">Projekte</a>
+        <a href="#about" class="hover:text-white transition-colors">Über mich</a>
+        <a
+          href="#kontakt"
+          class="px-4 py-2 border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10 rounded-lg transition-all text-sm"
+        >
+          Kontakt
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <!-- Background grid -->
+      <div
+        class="absolute inset-0"
+        style="background-image: linear-gradient(#1e1e2e33 1px, transparent 1px), linear-gradient(90deg, #1e1e2e33 1px, transparent 1px); background-size: 64px 64px;"
+      ></div>
+      <!-- Glow -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20"
+        style="background: radial-gradient(circle, #6366f1 0%, transparent 70%);"
+      ></div>
+
+      <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-mono mb-8 tracking-wider">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+          Bielefeld · Deutschland
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
+          Ingenieurslösungen<br />
+          <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #6366f1, #a78bfa);">
+            für die Industrie.
+          </span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-[#64748b] max-w-2xl mx-auto mb-12 leading-relaxed">
+          Automatisierung, CAD-Konstruktion und KI-gestützte 3D-Druck-Beratung —
+          von der Idee bis zur funktionsfähigen Lösung.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#projekte"
+            class="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl transition-all hover:shadow-lg hover:shadow-indigo-500/25"
+          >
+            Projekte ansehen
+          </a>
+          <a
+            href="#kontakt"
+            class="px-8 py-4 border border-[#1e1e2e] hover:border-indigo-500/50 text-[#e2e8f0] rounded-xl transition-all hover:bg-[#111118]"
+          >
+            Kontakt aufnehmen
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#64748b] text-xs">
+        <span class="font-mono tracking-widest">SCROLL</span>
+        <div class="w-px h-12 bg-gradient-to-b from-[#64748b] to-transparent"></div>
+      </div>
+    </section>
+
+    <!-- LEISTUNGEN -->
+    <section id="leistungen" class="py-32 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-16">
+          <p class="font-mono text-indigo-400 text-sm tracking-widest mb-3">01 — LEISTUNGEN</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-white">Was ich anbiete</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          {[
+            {
+              icon: '⚙️',
+              title: 'Automatisierung',
+              text: 'Entwicklung und Umsetzung automatisierter Systeme und Maschinen — von der Konzeption über die Konstruktion bis zur Inbetriebnahme.',
+              tags: ['Maschinenbau', 'Steuerung', 'Prozessoptimierung'],
+            },
+            {
+              icon: '📐',
+              title: 'CAD-Konstruktion',
+              text: 'Professionelle 3D-Konstruktion von Bauteilen, Baugruppen und komplexen Maschinensystemen — präzise, fertigungsgerecht und dokumentiert.',
+              tags: ['SolidWorks', 'Fusion 360', 'DFAM'],
+            },
+            {
+              icon: '🖨️',
+              title: '3D-Druck-Beratung',
+              text: 'Strategische Beratung zum Einsatz von FDM-3D-Druck in der Produktentwicklung und Fertigung — von der Materialauswahl bis zur fertigungsgerechten Konstruktion.',
+              tags: ['FDM', 'Rapid Prototyping', 'DFAM'],
+            },
+            {
+              icon: '🤖',
+              title: 'KI-Beratung',
+              text: 'Integration von KI-Werkzeugen in technische Workflows — Prozessautomatisierung, KI-gestützte Konstruktion und smarte Systemlösungen für die Industrie.',
+              tags: ['KI-Integration', 'Workflow-Automatisierung', 'Industrie 4.0'],
+            },
+            {
+              icon: '🔩',
+              title: 'Konstruktionsberatung',
+              text: 'Technische Beratung in der Produktentwicklung: Machbarkeitsanalysen, Werkstoffauswahl, Fertigungsoptimierung und Design-Review.',
+              tags: ['Produktentwicklung', 'Analyse', 'Review'],
+            },
+          ].map((item) => (
+            <div class="group p-8 rounded-2xl border border-[#1e1e2e] bg-[#111118] hover:border-indigo-500/40 transition-all hover:bg-[#13131f]">
+              <div class="text-3xl mb-5">{item.icon}</div>
+              <h3 class="text-xl font-semibold text-white mb-3">{item.title}</h3>
+              <p class="text-[#64748b] leading-relaxed mb-5">{item.text}</p>
+              <div class="flex flex-wrap gap-2">
+                {item.tags.map((tag) => (
+                  <span class="px-3 py-1 text-xs font-mono text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJEKTE -->
+    <section id="projekte" class="py-32 px-6 border-t border-[#1e1e2e]">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-16">
+          <p class="font-mono text-indigo-400 text-sm tracking-widest mb-3">02 — PROJEKTE</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-white">Ausgewählte Arbeiten</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          {[
+            {
+              nr: '01',
+              title: 'Automatisierte Verpackungsanlage',
+              category: 'Maschinenbau · Automatisierung',
+              desc: 'Eigenentwicklung einer vollautomatischen Anlage zur Verpackung von Holzplatten mit Pappkartonage und anschließendem Abstapeln auf Europaletten.',
+              highlights: ['Eigenentwicklung', 'Vollautomatisch', 'Palettierung'],
+            },
+            {
+              nr: '02',
+              title: 'Löffel-Sortieranlage',
+              category: 'Konstruktion · Fördertechnik',
+              desc: 'Konstruktion eines automatisierten Löffelsortierers für einen Spritzgusshersteller — maßgeschneidert auf spezifische Produktgeometrien und Durchsatzanforderungen.',
+              highlights: ['Laufendes Projekt', 'Fördertechnik', 'Spritzguss'],
+            },
+            {
+              nr: '03',
+              title: 'CAD-Konstruktionen',
+              category: 'CAD · Produktentwicklung',
+              desc: 'Vielfältige 3D-Konstruktionen: Maschinenkomponenten, Displays, Marketingartikel und Produktvarianten — fertigungsgerecht und parametrisch modelliert.',
+              highlights: ['SolidWorks', 'Fusion 360', 'Parametrisch'],
+            },
+          ].map((p) => (
+            <div class="group relative p-8 rounded-2xl border border-[#1e1e2e] bg-[#111118] hover:border-indigo-500/40 transition-all hover:bg-[#13131f] flex flex-col">
+              <span class="font-mono text-5xl font-bold text-[#1e1e2e] group-hover:text-indigo-500/20 transition-colors absolute top-6 right-8 select-none">
+                {p.nr}
+              </span>
+              <p class="font-mono text-xs text-indigo-400 tracking-widest mb-3">{p.category}</p>
+              <h3 class="text-lg font-semibold text-white mb-3 pr-8">{p.title}</h3>
+              <p class="text-[#64748b] text-sm leading-relaxed mb-6 flex-1">{p.desc}</p>
+              <div class="flex flex-wrap gap-2">
+                {p.highlights.map((h) => (
+                  <span class="px-2.5 py-1 text-xs font-mono text-[#64748b] border border-[#1e1e2e] rounded-full">
+                    {h}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-32 px-6 border-t border-[#1e1e2e]">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <p class="font-mono text-indigo-400 text-sm tracking-widest mb-3">03 — ÜBER MICH</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+              Robin Kollmeier
+            </h2>
+            <p class="text-[#64748b] leading-relaxed mb-4">
+              M.Sc. Wirtschaftsingenieurwesen mit Fokus auf CAD und Design for Additive Manufacturing (DFAM), B.Eng. Elektrotechnik mit Schwerpunkt Automatisierungstechnik. Zertifizierter KI-Manager.
+            </p>
+            <p class="text-[#64748b] leading-relaxed mb-8">
+              Ich verbinde klassisches Ingenieurswissen mit modernen KI-Werkzeugen — für Lösungen, die nicht nur funktionieren, sondern skalieren.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+              {[
+                { label: 'Standort', value: 'Bielefeld, DE' },
+                { label: 'Abschluss', value: 'M.Sc. WiIng · B.Eng. ET' },
+                { label: 'Software', value: 'SolidWorks · Fusion 360' },
+                { label: 'Fokus', value: 'KI + Engineering' },
+              ].map((item) => (
+                <div class="p-4 rounded-xl border border-[#1e1e2e] bg-[#111118]">
+                  <p class="text-xs font-mono text-[#64748b] mb-1">{item.label}</p>
+                  <p class="text-sm text-white font-medium">{item.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            {[
+              { skill: 'CAD & Konstruktion', level: 95 },
+              { skill: 'Automatisierung', level: 85 },
+              { skill: '3D-Druck / DFAM', level: 90 },
+              { skill: 'KI-Integration', level: 80 },
+            ].map((s) => (
+              <div>
+                <div class="flex justify-between text-sm mb-2">
+                  <span class="text-[#e2e8f0]">{s.skill}</span>
+                  <span class="font-mono text-indigo-400">{s.level}%</span>
+                </div>
+                <div class="h-1.5 bg-[#1e1e2e] rounded-full overflow-hidden">
+                  <div
+                    class="h-full rounded-full"
+                    style={`width: ${s.level}%; background: linear-gradient(90deg, #6366f1, #a78bfa);`}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt" class="py-32 px-6 border-t border-[#1e1e2e]">
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="font-mono text-indigo-400 text-sm tracking-widest mb-3">04 — KONTAKT</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Projekt anfragen</h2>
+        <p class="text-[#64748b] mb-12">
+          Du hast eine Idee, ein Problem oder ein konkretes Projekt? Schreib mir — ich melde mich innerhalb von 24 Stunden.
+        </p>
+
+        <form
+          class="text-left space-y-4"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          enctype="multipart/form-data"
+          id="contactForm"
+        >
+          <input type="hidden" name="access_key" value="8ac66527-f806-40c3-ae77-5fd812fc2e50" />
+          <input type="hidden" name="subject" value="Neue Projektanfrage – Kollmeier Systems" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-[#64748b] mb-2 tracking-wider">NAME</label>
+              <input
+                type="text"
+                name="name"
+                required
+                class="w-full px-4 py-3 bg-[#111118] border border-[#1e1e2e] rounded-xl text-white placeholder-[#64748b] focus:outline-none focus:border-indigo-500/50 transition-colors"
+                placeholder="Max Mustermann"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-[#64748b] mb-2 tracking-wider">E-MAIL</label>
+              <input
+                type="email"
+                name="email"
+                required
+                class="w-full px-4 py-3 bg-[#111118] border border-[#1e1e2e] rounded-xl text-white placeholder-[#64748b] focus:outline-none focus:border-indigo-500/50 transition-colors"
+                placeholder="max@firma.de"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-[#64748b] mb-2 tracking-wider">BETREFF</label>
+            <input
+              type="text"
+              name="betreff"
+              class="w-full px-4 py-3 bg-[#111118] border border-[#1e1e2e] rounded-xl text-white placeholder-[#64748b] focus:outline-none focus:border-indigo-500/50 transition-colors"
+              placeholder="Projektanfrage: Automatisierung"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-[#64748b] mb-2 tracking-wider">NACHRICHT</label>
+            <textarea
+              name="message"
+              rows="5"
+              required
+              class="w-full px-4 py-3 bg-[#111118] border border-[#1e1e2e] rounded-xl text-white placeholder-[#64748b] focus:outline-none focus:border-indigo-500/50 transition-colors resize-none"
+              placeholder="Beschreib dein Projekt oder deine Anfrage..."
+            ></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-[#64748b] mb-2 tracking-wider">ANHANG (optional)</label>
+            <label class="flex items-center gap-3 w-full px-4 py-3 bg-[#111118] border border-[#1e1e2e] border-dashed rounded-xl text-[#64748b] hover:border-indigo-500/50 hover:text-indigo-300 transition-all cursor-pointer group">
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+              </svg>
+              <span class="text-sm" id="fileLabel">Datei auswählen (Zeichnung, Skizze, Bild...)</span>
+              <input
+                type="file"
+                name="attachment"
+                class="hidden"
+                accept=".pdf,.png,.jpg,.jpeg,.step,.stp,.dxf,.dwg"
+                onchange="document.getElementById('fileLabel').textContent = this.files[0]?.name || 'Datei auswählen'"
+              />
+            </label>
+            <p class="text-xs text-[#64748b] mt-1.5 font-mono">PDF, PNG, JPG, STEP, DXF, DWG — max. 25 MB</p>
+          </div>
+          <button
+            type="submit"
+            class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl transition-all hover:shadow-lg hover:shadow-indigo-500/25"
+          >
+            Nachricht senden
+          </button>
+          <div id="formSuccess" class="hidden text-center py-4 text-indigo-300 font-mono text-sm">
+            ✓ Nachricht gesendet — ich melde mich bald.
+          </div>
+        </form>
+
+        <script>
+          document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const form = e.target as HTMLFormElement
+            const data = new FormData(form)
+            const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+            if (res.ok) {
+              form.reset()
+              document.getElementById('fileLabel')!.textContent = 'Datei auswählen (Zeichnung, Skizze, Bild...)'
+              document.getElementById('formSuccess')!.classList.remove('hidden')
+            }
+          })
+        </script>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#1e1e2e] py-8 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#64748b]">
+      <span class="font-mono">Kollmeier<span class="text-indigo-400">.</span>Systems</span>
+      <span>© {new Date().getFullYear()} Robin Kollmeier · Bielefeld</span>
+      <div class="flex gap-6">
+        <a href="/impressum" class="hover:text-white transition-colors">Impressum</a>
+        <a href="/datenschutz" class="hover:text-white transition-colors">Datenschutz</a>
+      </div>
+    </div>
+  </footer>
+</Layout>

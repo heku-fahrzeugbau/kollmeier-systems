@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Datenschutz — Kollmeier Systems" description="Datenschutzerklärung von Kollmeier Systems, Robin Kollmeier">
+  <header class="fixed top-0 left-0 right-0 z-50 border-b border-[#1e1e2e] bg-[#0a0a0f]/80 backdrop-blur-md">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="font-mono text-sm font-medium text-white tracking-widest uppercase">
+        Kollmeier<span class="text-indigo-400">.</span>Systems
+      </a>
+      <a href="/" class="text-sm text-[#64748b] hover:text-white transition-colors">← Zurück</a>
+    </nav>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 pt-36 pb-32">
+    <p class="font-mono text-indigo-400 text-sm tracking-widest mb-3">LEGAL</p>
+    <h1 class="text-4xl font-bold text-white mb-12">Datenschutzerklärung</h1>
+
+    <div class="space-y-10 text-[#64748b] leading-relaxed">
+
+      <div>
+        <h2 class="text-white font-semibold text-lg mb-3">1. Verantwortlicher</h2>
+        <p>Verantwortlicher im Sinne der DSGVO ist:<br /><br />
+        Robin Kollmeier<br />
+        Talbrückenstraße 47<br />
+        33611 Bielefeld<br />
+        E-Mail: <a href="mailto:kollmeier.robin@gmail.com" class="text-indigo-400 hover:text-indigo-300 transition-colors">kollmeier.robin@gmail.com</a>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-white font-semibold text-lg mb-3">2. Hosting</h2>
+        <p>Diese Website wird bei <strong class="text-white">Vercel Inc.</strong> (340 Pine Street, Suite 701, San Francisco, CA 94104, USA) gehostet. Beim Aufruf der Website werden automatisch Verbindungsdaten (IP-Adresse, Browsertyp, Datum und Uhrzeit des Zugriffs) in Server-Logfiles gespeichert. Diese Daten sind technisch notwendig für den Betrieb der Website und werden nicht mit anderen Datenquellen zusammengeführt.</p>
+        <p class="mt-3">Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren und stabilen Betrieb der Website).</p>
+        <p class="mt-3">Vercel hat sich den EU-US Data Privacy Framework Grundsätzen verpflichtet. Weitere Informationen: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">vercel.com/legal/privacy-policy</a></p>
+      </div>
+
+      <div>
+        <h2 class="text-white font-semibold text-lg mb-3">3. Kontaktformular</h2>
+        <p>Wenn Sie das Kontaktformular auf dieser Website nutzen, werden die von Ihnen eingegebenen Daten (Name, E-Mail-Adresse, Betreff, Nachricht sowie optional hochgeladene Dateien) zur Bearbeitung Ihrer Anfrage verarbeitet.</p>
+        <p class="mt-3">Die Übermittlung erfolgt über den Dienst <strong class="text-white">Web3Forms</strong> (Betreiber: HiHello Inc., USA). Die Daten werden verschlüsselt übertragen und anschließend per E-Mail an mich weitergeleitet. Web3Forms speichert keine Formulardaten dauerhaft.</p>
+        <p class="mt-3">Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen).</p>
+        <p class="mt-3">Die übermittelten Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben. Ich lösche die Daten, sobald sie nicht mehr erforderlich sind.</p>
+      </div>
+
+      <div>
+        <h2 class="text-white font-semibold text-lg mb-3">4. Google Fonts</h2>
+        <p>Diese Website lädt Schriftarten von <strong class="text-white">Google Fonts</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Dabei wird Ihre IP-Adresse an Google übermittelt. Google Fonts werden zur einheitlichen und optisch ansprechenden Darstellung der Website eingesetzt.</p>
+        <p class="mt-3">Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer einheitlichen Darstellung).</p>
+        <p class="mt-3">Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">policies.google.com/privacy</a></p>
+      </div>
+
+      <div>
+        <h2 class="text-white font-semibold text-lg mb-3">5. Keine Cookies, kein Tracking</h2>
+        <p>Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Tools (z. B. Google Analytics). Es werden keine Nutzerprofile erstellt.</p>
+      </div>
+
+      <div>
+        <h2 class="text-white font-semibold text-lg mb-3">6. Ihre Rechte</h2>
+        <p>Sie haben gegenüber mir folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
+        <ul class="mt-3 space-y-2 list-none">
+          {[
+            'Recht auf Auskunft (Art. 15 DSGVO)',
+            'Recht auf Berichtigung (Art. 16 DSGVO)',
+            'Recht auf Löschung (Art. 17 DSGVO)',
+            'Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)',
+            'Recht auf Datenübertragbarkeit (Art. 20 DSGVO)',
+            'Recht auf Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)',
+          ].map((r) => (
+            <li class="flex items-start gap-2">
+              <span class="text-indigo-400 mt-0.5 shrink-0">—</span>
+              <span>{r}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-4">Zur Geltendmachung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:kollmeier.robin@gmail.com" class="text-indigo-400 hover:text-indigo-300 transition-colors">kollmeier.robin@gmail.com</a></p>
+        <p class="mt-3">Sie haben zudem das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Zuständig ist die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW).</p>
+      </div>
+
+      <div>
+        <h2 class="text-white font-semibold text-lg mb-3">7. Aktualität</h2>
+        <p>Diese Datenschutzerklärung ist aktuell gültig und hat den Stand Juni 2026. Durch die Weiterentwicklung der Website oder aufgrund geänderter gesetzlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-[#1e1e2e] py-8 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#64748b]">
+      <span class="font-mono">Kollmeier<span class="text-indigo-400">.</span>Systems</span>
+      <span>© {new Date().getFullYear()} Robin Kollmeier · Bielefeld</span>
+      <div class="flex gap-6">
+        <a href="/impressum" class="hover:text-white transition-colors">Impressum</a>
+        <a href="/datenschutz" class="hover:text-white transition-colors">Datenschutz</a>
+      </div>
+    </div>
+  </footer>
+</Layout>
