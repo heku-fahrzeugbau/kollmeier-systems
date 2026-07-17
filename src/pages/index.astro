@@ -26,16 +26,33 @@ import Layout from '../layouts/Layout.astro'
   <main>
     <!-- HERO -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <!-- Background grid -->
+      <!-- Static background (grid + glow) — also the reduced-motion fallback -->
       <div
         class="absolute inset-0"
         style="background-image: linear-gradient(#1e1e2e33 1px, transparent 1px), linear-gradient(90deg, #1e1e2e33 1px, transparent 1px); background-size: 64px 64px;"
       ></div>
-      <!-- Glow -->
       <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20"
         style="background: radial-gradient(circle, #6366f1 0%, transparent 70%);"
       ></div>
+
+      <!-- Ambient motion background (hidden when the user prefers reduced motion) -->
+      <video
+        class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="/videos/hero-ambient-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-ambient.webm" type="video/webm" />
+        <source src="/videos/hero-ambient.mp4" type="video/mp4" />
+      </video>
+
+      <!-- Legibility overlay so the headline stays crisp over the motion -->
+      <div class="absolute inset-0 bg-[#0a0a0f]/35"></div>
 
       <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-mono mb-8 tracking-wider">
