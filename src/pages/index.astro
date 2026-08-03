@@ -79,40 +79,42 @@ const process = [
 
   <main id="top">
     <section class="hero">
+      <div class="hero-ambient" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="metadata" poster="/videos/hero-ambient-poster.jpg">
+          <source src="/videos/hero-ambient.webm" type="video/webm" />
+          <source src="/videos/hero-ambient.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="hero-veil" aria-hidden="true"></div>
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="shell hero-layout">
         <div class="hero-copy">
-          <p class="eyebrow">Engineering aus Bielefeld</p>
-          <h1>Aus Ideen werden <em>funktionierende</em> Systeme.</h1>
-          <p class="hero-lead">
+          <p class="eyebrow hero-enter" style="--enter-delay: 80ms">Engineering aus Bielefeld</p>
+          <h1 class="hero-enter" style="--enter-delay: 160ms">Aus Ideen werden <em>funktionierende</em> Systeme.</h1>
+          <p class="hero-lead hero-enter" style="--enter-delay: 260ms">
             Konstruktion, Automatisierung und technische KI-Lösungen für Unternehmen,
             die ein konkretes Problem sauber gelöst brauchen.
           </p>
-          <div class="hero-actions">
+          <div class="hero-actions hero-enter" style="--enter-delay: 360ms">
             <a href="#kontakt" class="button button--signal">Projekt unverbindlich besprechen <span aria-hidden="true">↗</span></a>
             <a href="#projekte" class="button button--ghost">Arbeiten ansehen</a>
           </div>
-          <dl class="hero-facts">
+          <dl class="hero-facts hero-enter" style="--enter-delay: 460ms">
             <div><dt>Fokus</dt><dd>CAD · Automation · DFAM</dd></div>
             <div><dt>Arbeitsweise</dt><dd>Direkt · technisch · pragmatisch</dd></div>
           </dl>
         </div>
 
-        <div class="hero-visual">
+        <div class="hero-visual hero-enter" style="--enter-delay: 280ms">
           <div class="visual-meta"><span>FIELD / 01</span><span>SYSTEMS IN MOTION</span></div>
           <div class="visual-frame">
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              poster="/videos/hero-ambient-poster.jpg"
-              aria-label="Abstrakte technische Animation"
-            >
-              <source src="/videos/hero-ambient.webm" type="video/webm" />
-              <source src="/videos/hero-ambient.mp4" type="video/mp4" />
-            </video>
+            <img
+              src="/videos/hero-ambient-poster.jpg"
+              width="1920"
+              height="1080"
+              alt="Abstrakte technische Licht- und Rasterstruktur"
+              fetchpriority="high"
+            />
             <div class="visual-overlay"></div>
             <span class="corner corner-a" aria-hidden="true"></span>
             <span class="corner corner-b" aria-hidden="true"></span>
@@ -122,7 +124,7 @@ const process = [
           </div>
         </div>
       </div>
-      <div class="shell hero-strip" aria-label="Qualifikationen">
+      <div class="shell hero-strip hero-enter" style="--enter-delay: 560ms" aria-label="Qualifikationen">
         <span>M.Sc. Wirtschaftsingenieurwesen</span>
         <span>B.Eng. Elektrotechnik</span>
         <span>Zertifizierter KI-Manager</span>
@@ -131,7 +133,7 @@ const process = [
 
     <section id="leistungen" class="paper-section services-section">
       <div class="shell">
-        <div class="section-intro">
+        <div class="section-intro reveal-item" data-reveal>
           <div>
             <p class="eyebrow">Leistungen</p>
             <h2 class="section-title">Technik ohne Umwege.</h2>
@@ -143,8 +145,8 @@ const process = [
         </div>
 
         <div class="service-list">
-          {services.map((service) => (
-            <article class="service-row">
+          {services.map((service, index) => (
+            <article class="service-row reveal-item" data-reveal style={`--reveal-delay: ${index * 70}ms`}>
               <span class="service-number">{service.number}</span>
               <h3>{service.title}</h3>
               <p>{service.text}</p>
@@ -158,14 +160,14 @@ const process = [
     <section id="projekte" class="projects-section">
       <div class="shell">
         <p class="eyebrow">Ausgewählte Arbeiten</p>
-        <div class="projects-heading">
+        <div class="projects-heading reveal-item" data-reveal>
           <h2 class="section-title">Probleme werden Projekte.<br />Projekte werden Lösungen.</h2>
           <p>Ein Einblick in Aufgaben aus Maschinenbau, Automatisierung und Produktentwicklung.</p>
         </div>
 
         <div class="project-grid">
-          {projects.map((project) => (
-            <article class="project-card">
+          {projects.map((project, index) => (
+            <article class="project-card reveal-item" data-reveal style={`--reveal-delay: ${index * 90}ms`}>
               <div class="project-topline">
                 <span class="project-number">{project.number}</span>
                 <span class="project-status"><i aria-hidden="true"></i>{project.status}</span>
@@ -193,7 +195,7 @@ const process = [
 
     <section id="prozess" class="paper-section process-section">
       <div class="shell process-layout">
-        <div class="process-copy">
+        <div class="process-copy reveal-item" data-reveal>
           <p class="eyebrow">Vorgehen</p>
           <h2 class="section-title">Ein klarer Weg vom Problem zur Lösung.</h2>
           <p class="section-copy">
@@ -202,8 +204,8 @@ const process = [
           </p>
         </div>
         <ol class="process-list">
-          {process.map(([number, title, text]) => (
-            <li>
+          {process.map(([number, title, text], index) => (
+            <li class="reveal-item" data-reveal style={`--reveal-delay: ${index * 70}ms`}>
               <span>{number}</span>
               <div><h3>{title}</h3><p>{text}</p></div>
             </li>
@@ -214,11 +216,11 @@ const process = [
 
     <section id="ueber-mich" class="about-section">
       <div class="shell about-layout">
-        <div class="about-statement">
+        <div class="about-statement reveal-item" data-reveal>
           <p class="eyebrow">Über mich</p>
           <h2>Ingenieurdenken trifft digitale Werkzeuge.</h2>
         </div>
-        <div class="about-copy">
+        <div class="about-copy reveal-item" data-reveal style="--reveal-delay: 110ms">
           <p class="about-lead">Ich bin Robin Kollmeier, Wirtschaftsingenieur und Elektrotechniker aus Bielefeld.</p>
           <p>
             Mein Schwerpunkt liegt dort, wo technische Entwicklung praktisch werden muss:
@@ -236,7 +238,7 @@ const process = [
 
     <section id="kontakt" class="contact-section">
       <div class="shell contact-layout">
-        <div class="contact-copy">
+        <div class="contact-copy reveal-item" data-reveal>
           <p class="eyebrow">Kontakt</p>
           <h2>Welches technische Problem soll als Nächstes gelöst werden?</h2>
           <p>Ein paar Stichpunkte reichen für den Anfang. Ich melde mich persönlich und kläre mit dir, ob und wie ich sinnvoll unterstützen kann.</p>
@@ -252,7 +254,9 @@ const process = [
           method="POST"
           enctype="multipart/form-data"
           id="contactForm"
-          class="contact-form"
+          class="contact-form reveal-item"
+          data-reveal
+          style="--reveal-delay: 120ms"
         >
           <input type="hidden" name="access_key" value="8ac66527-f806-40c3-ae77-5fd812fc2e50" />
           <input type="hidden" name="subject" value="Neue Projektanfrage – Kollmeier Systems" />
@@ -324,11 +328,55 @@ const process = [
         submitButton.innerHTML = 'Anfrage senden <span aria-hidden="true">↗</span>'
       }
     })
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const revealItems = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
+
+    if (!reducedMotion.matches && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('motion-enabled')
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return
+            entry.target.classList.add('is-visible')
+            revealObserver.unobserve(entry.target)
+          })
+        },
+        { threshold: 0.14, rootMargin: '0px 0px -8% 0px' },
+      )
+      revealItems.forEach((item) => revealObserver.observe(item))
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'))
+    }
+
+    const siteHeader = document.querySelector<HTMLElement>('.site-header')
+    const updateHeader = () => siteHeader?.classList.toggle('is-scrolled', window.scrollY > 18)
+    updateHeader()
+    window.addEventListener('scroll', updateHeader, { passive: true })
+
+    const hero = document.querySelector<HTMLElement>('.hero')
+    const visualFrame = document.querySelector<HTMLElement>('.visual-frame')
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
+
+    if (hero && visualFrame && finePointer.matches && !reducedMotion.matches) {
+      hero.addEventListener('pointermove', (event) => {
+        const bounds = hero.getBoundingClientRect()
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5
+        visualFrame.style.setProperty('--tilt-x', `${x * 2.4}deg`)
+        visualFrame.style.setProperty('--tilt-y', `${y * -2.4}deg`)
+      })
+      hero.addEventListener('pointerleave', () => {
+        visualFrame.style.setProperty('--tilt-x', '0deg')
+        visualFrame.style.setProperty('--tilt-y', '0deg')
+      })
+    }
   </script>
 </Layout>
 
 <style>
-  .site-header { position: fixed; inset: 0 0 auto; z-index: 50; border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(11,14,18,.82); backdrop-filter: blur(18px); }
+  .site-header { position: fixed; inset: 0 0 auto; z-index: 50; border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(11,14,18,.72); backdrop-filter: blur(18px); transition: background-color .35s ease, border-color .35s ease, box-shadow .35s ease; }
+  .site-header.is-scrolled { border-color: rgba(255,255,255,.13); background: rgba(11,14,18,.91); box-shadow: 0 12px 40px rgba(0,0,0,.18); }
   .nav { min-height: 4.5rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem; }
   .brand { display: inline-flex; align-items: center; gap: .7rem; width: max-content; font-size: .88rem; font-weight: 700; letter-spacing: -.02em; }
   .brand-mark { display: grid; width: 2rem; aspect-ratio: 1; place-items: center; border: 1px solid #65707c; font-family: Consolas, monospace; font-size: .68rem; }
@@ -336,9 +384,13 @@ const process = [
   .nav-links a:hover { color: white; }
   .nav-cta { justify-self: end; color: var(--signal); font-size: .82rem; font-weight: 700; }
 
-  .hero { position: relative; min-height: 100svh; overflow: hidden; padding-top: 4.5rem; background: var(--ink); }
-  .hero-grid { position: absolute; inset: 0; opacity: .35; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 5rem 5rem; mask-image: linear-gradient(to bottom, black, transparent 82%); }
-  .hero-layout { position: relative; display: grid; grid-template-columns: minmax(0,1.08fr) minmax(360px,.92fr); align-items: center; gap: clamp(2rem,6vw,6rem); min-height: calc(100svh - 9rem); padding-block: 5rem 3rem; }
+  .hero { position: relative; min-height: 100svh; overflow: hidden; padding-top: 4.5rem; background: var(--ink); isolation: isolate; }
+  .hero-ambient { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: url('/videos/hero-ambient-poster.jpg') center / cover no-repeat; }
+  .hero-ambient video { width: 100%; height: 100%; object-fit: cover; opacity: .28; filter: saturate(.72) contrast(1.08); transform: scale(1.04); animation: ambient-drift 18s ease-in-out infinite alternate; }
+  .hero-veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(11,14,18,.96) 0%, rgba(11,14,18,.79) 48%, rgba(11,14,18,.48) 100%), linear-gradient(0deg, rgba(11,14,18,.92) 0%, transparent 45%); }
+  .hero-grid { position: absolute; inset: -5rem; z-index: 2; opacity: .28; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 5rem 5rem; mask-image: linear-gradient(to bottom, black, transparent 82%); animation: grid-drift 24s linear infinite; }
+  .hero-layout { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(0,1.08fr) minmax(360px,.92fr); align-items: center; gap: clamp(2rem,6vw,6rem); min-height: calc(100svh - 9rem); padding-block: 5rem 3rem; }
+  .hero-enter { opacity: 0; animation: hero-enter .85s cubic-bezier(.2,.75,.2,1) forwards; animation-delay: var(--enter-delay, 0ms); }
   .hero-copy h1 { max-width: 760px; margin: 1.2rem 0 1.5rem; color: #f6f7f8; font-size: clamp(3.55rem,7.2vw,7.7rem); font-weight: 700; letter-spacing: -.075em; line-height: .87; }
   .hero-copy h1 em { color: var(--signal); font-family: Georgia, serif; font-weight: 400; }
   .hero-lead { max-width: 620px; color: #a5abb3; font-size: clamp(1.05rem,1.7vw,1.32rem); line-height: 1.65; }
@@ -349,8 +401,9 @@ const process = [
   .hero-facts dd { margin: .35rem 0 0; color: #d7dbe0; font-size: .78rem; }
   .hero-visual { min-width: 0; }
   .visual-meta { display: flex; justify-content: space-between; margin-bottom: .7rem; color: #7f8791; font-family: Consolas, monospace; font-size: .6rem; letter-spacing: .13em; }
-  .visual-frame { position: relative; overflow: hidden; aspect-ratio: .83; border: 1px solid #303741; background: #141820; clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem)); }
-  .visual-frame video { width: 100%; height: 100%; object-fit: cover; filter: saturate(.65) contrast(1.1); }
+  .visual-frame { position: relative; overflow: hidden; aspect-ratio: .83; border: 1px solid #303741; background: #141820; clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem)); transform: perspective(1100px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)); transition: transform .45s cubic-bezier(.2,.75,.2,1), border-color .35s ease; }
+  .visual-frame:hover { border-color: #596573; }
+  .visual-frame img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.68) contrast(1.1); transform: scale(1.04); animation: visual-breathe 10s ease-in-out infinite alternate; }
   .visual-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(11,14,18,.05), rgba(11,14,18,.68)); }
   .corner { position: absolute; width: 2rem; height: 2rem; border-color: var(--signal); }
   .corner-a { top: 1.25rem; left: 1.25rem; border-top: 1px solid; border-left: 1px solid; }
@@ -358,7 +411,7 @@ const process = [
   .visual-caption { position: absolute; inset: auto 1.5rem 1.5rem; display: flex; align-items: center; gap: .65rem; padding: .85rem; background: rgba(11,14,18,.74); backdrop-filter: blur(12px); color: #b6bdc6; font-family: Consolas, monospace; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; }
   .visual-caption i { flex: 1; height: 1px; background: #565f69; }
   .visual-caption strong { color: var(--signal); font-weight: 700; }
-  .hero-strip { position: relative; display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-top: 1px solid #282e35; color: #7f8791; font-family: Consolas, monospace; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
+  .hero-strip { position: relative; z-index: 3; display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-top: 1px solid #282e35; color: #7f8791; font-family: Consolas, monospace; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
 
   .paper-section { background: var(--paper); color: #111419; }
   .services-section { padding: clamp(6rem,11vw,10rem) 0; }
@@ -367,7 +420,8 @@ const process = [
   .service-row { display: grid; grid-template-columns: 4rem 1fr 1.3fr .8fr; gap: 2rem; align-items: start; padding: 2rem 0; border-bottom: 1px solid var(--line-light); }
   .service-number, .service-meta { font-family: Consolas, monospace; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; }
   .service-number { color: var(--signal); }
-  .service-row h3 { margin: 0; font-size: clamp(1.25rem,2vw,1.65rem); letter-spacing: -.035em; }
+  .service-row h3 { margin: 0; font-size: clamp(1.25rem,2vw,1.65rem); letter-spacing: -.035em; transition: color .25s ease, translate .25s ease; }
+  .service-row:hover h3 { color: var(--signal); translate: .35rem 0; }
   .service-row p { margin: 0; color: #5d626a; line-height: 1.65; }
   .service-meta { color: #777d84; line-height: 1.6; }
 
@@ -455,6 +509,29 @@ const process = [
   .footer-grid > div { display: flex; gap: 1rem; justify-self: end; }
   .footer-grid small { grid-column: 1 / -1; padding-top: 1rem; border-top: 1px solid #22282f; color: #59616b; }
 
+  .motion-enabled [data-reveal] { opacity: 0; translate: 0 1.6rem; transition: opacity .72s cubic-bezier(.2,.75,.2,1), translate .72s cubic-bezier(.2,.75,.2,1); transition-delay: var(--reveal-delay, 0ms); }
+  .motion-enabled [data-reveal].is-visible { opacity: 1; translate: 0 0; }
+  .project-diagram .diagram-line { clip-path: inset(0 100% 0 0); transition: clip-path .9s cubic-bezier(.2,.75,.2,1) .25s; }
+  .project-diagram .diagram-node { opacity: .12; transition: opacity .5s ease, border-color .5s ease, box-shadow .5s ease; }
+  .project-card.is-visible .diagram-line { clip-path: inset(0 0 0 0); }
+  .project-card.is-visible .diagram-node { opacity: 1; }
+  .project-card.is-visible .node-b { box-shadow: 0 0 0 8px rgba(255,96,56,.08), 0 0 32px rgba(255,96,56,.16); }
+
+  @keyframes hero-enter {
+    from { opacity: 0; transform: translateY(1.5rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ambient-drift {
+    from { transform: scale(1.04) translate3d(-.35%, -.25%, 0); }
+    to { transform: scale(1.09) translate3d(.35%, .25%, 0); }
+  }
+  @keyframes grid-drift {
+    to { transform: translate3d(5rem, 5rem, 0); }
+  }
+  @keyframes visual-breathe {
+    from { transform: scale(1.04); }
+    to { transform: scale(1.09); }
+  }
   @media (max-width: 980px) {
     .nav { grid-template-columns: 1fr auto; }
     .nav-links { display: none; }
@@ -490,5 +567,13 @@ const process = [
     .form-footer { align-items: stretch; flex-direction: column; }
     .footer-grid { grid-template-columns: 1fr auto; }
     .footer-grid p { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-ambient video { display: none; }
+    .hero-grid, .hero-enter, .visual-frame img { animation: none !important; }
+    .hero-enter, .motion-enabled [data-reveal] { opacity: 1; translate: 0 0; transform: none; }
+    .visual-frame { transform: none !important; }
+    .project-diagram .diagram-line { clip-path: inset(0 0 0 0); }
+    .project-diagram .diagram-node { opacity: 1; }
   }
 </style>
