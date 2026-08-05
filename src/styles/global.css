@@ -25,6 +25,14 @@
   --blueprint: #7180ff;
   --muted: #969da7;
   --radius: 1.25rem;
+
+  /* Motion: eigene Kurven statt der zu weichen Browser-Defaults */
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --dur-press: 160ms;
+  --dur-hover: 200ms;
+  --dur-enter: 260ms;
+  --dur-reveal: 500ms;
 }
 
 * { box-sizing: border-box; }
@@ -72,7 +80,7 @@ button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
   margin: 0;
   color: var(--signal);
   font-family: Consolas, 'SFMono-Regular', monospace;
-  font-size: .72rem;
+  font-size: .75rem;
   font-weight: 700;
   letter-spacing: .15em;
   text-transform: uppercase;
@@ -112,26 +120,41 @@ button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
   border-radius: 999px;
   font-size: .9rem;
   font-weight: 700;
-  transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
+  transition:
+    transform var(--dur-press) var(--ease-out),
+    background-color var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out);
 }
 
-.button:hover { transform: translateY(-2px); }
 .button--signal { background: var(--signal); color: #140b08; }
-.button--signal:hover { background: #ff7654; }
 .button--ghost { border-color: #3a414a; color: #f2f4f7; }
-.button--ghost:hover { border-color: #747e8a; background: rgba(255,255,255,.04); }
+
+/* Hover nur dort, wo es einen echten Zeiger gibt — sonst klebt der State nach dem Tap */
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { transform: translateY(-2px); }
+  .button--signal:hover { background: #ff7654; }
+  .button--ghost:hover { border-color: #747e8a; background: rgba(255,255,255,.04); }
+}
+
+/* Druckfeedback: das Interface bestätigt, dass es den Klick gehört hat */
+.button:active { transform: scale(.97); }
 
 @media (max-width: 720px) {
   .shell { width: min(100% - 1.25rem, 1180px); }
   .section-title { letter-spacing: -.045em; }
 }
 
+/*
+  Reduced Motion heißt weniger Bewegung, nicht kein Feedback.
+  Dauerschleifen und Positionswechsel fallen weg, Farb- und Opacity-Übergänge
+  bleiben erhalten — sie erklären Zustandswechsel, ohne den Nutzer zu bewegen.
+*/
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
   }
+  .button:hover, .button:active { transform: none; }
 }
