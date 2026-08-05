@@ -126,6 +126,19 @@ const process = [
               fetchpriority="high"
             />
             <div class="visual-overlay"></div>
+            <div class="visual-3d" aria-hidden="true">
+              <div class="cube">
+                <span class="face face-front"></span>
+                <span class="face face-back"></span>
+                <span class="face face-right"></span>
+                <span class="face face-left"></span>
+                <span class="face face-top"></span>
+                <span class="face face-bottom"></span>
+                <span class="axis axis-x"></span>
+                <span class="axis axis-y"></span>
+                <span class="axis axis-z"></span>
+              </div>
+            </div>
             <span class="corner corner-a" aria-hidden="true"></span>
             <span class="corner corner-b" aria-hidden="true"></span>
             <div class="visual-caption">
@@ -419,13 +432,15 @@ const process = [
       })
     }
 
-    // Ambient-Video anhalten, sobald der Hero aus dem Viewport ist — spart Akku und GPU
+    // Video und 3D-Würfel anhalten, sobald der Hero aus dem Viewport ist — spart Akku und GPU
     const heroVideo = document.querySelector<HTMLVideoElement>('.hero-ambient video')
-    if (hero && heroVideo && 'IntersectionObserver' in window) {
+    const cube = document.querySelector<HTMLElement>('.cube')
+    if (hero && 'IntersectionObserver' in window) {
       new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) heroVideo.play().catch(() => {})
-          else heroVideo.pause()
+          if (entry.isIntersecting) heroVideo?.play().catch(() => {})
+          else heroVideo?.pause()
+          if (cube) cube.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'
         },
         { threshold: 0 },
       ).observe(hero)
@@ -458,10 +473,11 @@ const process = [
   .hero-layout { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(0,1.08fr) minmax(360px,.92fr); align-items: center; gap: clamp(2rem,6vw,6rem); min-height: calc(100svh - 9rem); padding-block: 5rem 3rem; }
   .hero-enter { opacity: 0; animation: hero-enter .6s var(--ease-out) forwards; animation-delay: var(--enter-delay, 0ms); }
   /*
-    Obergrenze 6.8rem statt 7.7rem: "funktionierende" ist breiter als die Hero-Spalte und
-    ragt bewusst in die Rasterlücke. Ab ~1560px wäre es sonst ins rechte Panel gelaufen.
+    Obergrenze 6.5rem statt 7.7rem: "funktionierende" ist in Georgia Italic rund
+    6,0x so breit wie die Schriftgröße und damit breiter als die Hero-Spalte. Es ragt
+    bewusst in die Rasterlücke, lief bei 1920px aber 59px unter das rechte Panel.
   */
-  .hero-copy h1 { max-width: 760px; margin: 1.2rem 0 1.5rem; color: #f6f7f8; font-size: clamp(3.55rem,7.2vw,6.8rem); font-weight: 700; letter-spacing: -.075em; line-height: .87; }
+  .hero-copy h1 { max-width: 760px; margin: 1.2rem 0 1.5rem; color: #f6f7f8; font-size: clamp(3.55rem,7.2vw,6.5rem); font-weight: 700; letter-spacing: -.075em; line-height: .87; }
   .hero-copy h1 em { color: var(--signal); font-family: Georgia, serif; font-weight: 400; }
   .hero-lead { max-width: 620px; color: #a5abb3; font-size: clamp(1.05rem,1.7vw,1.32rem); line-height: 1.65; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2.3rem; }
@@ -474,6 +490,31 @@ const process = [
   .visual-frame { position: relative; overflow: hidden; aspect-ratio: .83; border: 1px solid #303741; background: #141820; clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem)); transform: perspective(1100px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)); transition: transform .28s var(--ease-out), border-color var(--dur-hover) var(--ease-out); }
   .visual-frame img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.68) contrast(1.1); transform: scale(1.04); }
   .visual-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(11,14,18,.05), rgba(11,14,18,.68)); }
+
+  /*
+    Drahtgitter-Würfel in CSS-3D. Reine transform-Animation, damit sie auf der GPU
+    läuft; --cube steuert Kantenlänge und Tiefenversatz gemeinsam.
+  */
+  /* --cube muss eine absolute Länge sein: translateZ() akzeptiert keine Prozentwerte */
+  .visual-3d { position: absolute; inset: 0; display: grid; place-items: center; perspective: 900px; --cube: 10rem; }
+  .cube { position: relative; width: var(--cube); height: var(--cube); transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(-28deg); animation: cube-spin 32s linear infinite; }
+  .cube .face { position: absolute; inset: 0; border: 1px solid rgba(150,168,190,.32); background-image: linear-gradient(rgba(150,168,190,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(150,168,190,.07) 1px, transparent 1px); background-size: 25% 25%; }
+  .face-front  { transform: translateZ(calc(var(--cube) / 2)); border-color: rgba(255,96,56,.55); }
+  .face-back   { transform: rotateY(180deg) translateZ(calc(var(--cube) / 2)); }
+  .face-right  { transform: rotateY(90deg) translateZ(calc(var(--cube) / 2)); }
+  .face-left   { transform: rotateY(-90deg) translateZ(calc(var(--cube) / 2)); }
+  .face-top    { transform: rotateX(90deg) translateZ(calc(var(--cube) / 2)); }
+  .face-bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube) / 2)); }
+  /* Achsenkreuz durch den Mittelpunkt — liest sich wie ein CAD-Ursprung */
+  .cube .axis { position: absolute; top: 50%; left: 50%; background: rgba(255,96,56,.42); }
+  .axis-x { width: calc(var(--cube) * 1.5); height: 1px; transform: translate(-50%, -50%); }
+  .axis-y { width: 1px; height: calc(var(--cube) * 1.5); transform: translate(-50%, -50%); }
+  .axis-z { width: calc(var(--cube) * 1.5); height: 1px; transform: translate(-50%, -50%) rotateY(90deg); }
+
+  @keyframes cube-spin {
+    from { transform: rotateX(-24deg) rotateY(-28deg); }
+    to   { transform: rotateX(-24deg) rotateY(332deg); }
+  }
   .corner { position: absolute; width: 2rem; height: 2rem; border-color: var(--signal); }
   .corner-a { top: 1.25rem; left: 1.25rem; border-top: 1px solid; border-left: 1px solid; }
   .corner-b { right: 1.25rem; bottom: 1.25rem; border-right: 1px solid; border-bottom: 1px solid; }
@@ -696,6 +737,7 @@ const process = [
     .hero-facts { flex-direction: column; gap: 1rem; }
     .hero-visual { margin-top: 4rem; }
     .visual-frame { aspect-ratio: 1.1; }
+    .visual-3d { --cube: 7rem; }
     .hero-strip { flex-direction: column; }
     .section-intro, .projects-heading, .process-layout, .about-layout { grid-template-columns: 1fr; gap: 2rem; }
     .service-row { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
@@ -711,7 +753,8 @@ const process = [
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-ambient video { display: none; }
-    .hero-grid, .hero-enter { animation: none !important; }
+    /* Würfel bleibt stehen — die statische Isometrie aus der Basisregel wirkt weiterhin bewusst gesetzt */
+    .hero-grid, .hero-enter, .cube { animation: none !important; }
     .hero-enter, .motion-enabled [data-reveal] { opacity: 1; translate: 0 0; transform: none; }
     .visual-frame { transform: none !important; }
     .project-diagram .diagram-line { clip-path: inset(0 0 0 0); }
