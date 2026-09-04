@@ -24,11 +24,12 @@ interface Props {
    *  Ein Name zweimal hintereinander lässt die Formation über den ganzen
    *  Abschnitt dazwischen stehen, statt sofort weiterzuwandern. */
   formations?: string;
-  /** Fläche in px² pro Stern. Kleiner = mehr Sterne. Default 1300 */
+  /** Fläche in px² pro Stern. Kleiner = mehr Sterne. Default 1050 */
   density?: number;
-  /** Obergrenze der Sternanzahl (Performance-Bremse). Default 3200 */
+  /** Obergrenze der Sternanzahl (Performance-Bremse). Default 4200 */
   maxCount?: number;
-  /** Wirkradius des Cursors in px. Default 220 */
+  /** Wirkradius des Cursors in px — bewusst klein, der Cursor soll den Stern
+   *  quasi berühren müssen. Default 55 */
   repelRadius?: number;
   /** Deckkraft des Feldes, 0–1. Default 1 */
   opacity?: number;
@@ -38,9 +39,9 @@ interface Props {
 const {
   mode = 'section',
   formations = 'field,grid,ks,ks,spiral,wave',
-  density = 1300,
-  maxCount = 3200,
-  repelRadius = 220,
+  density = 1050,
+  maxCount = 4200,
+  repelRadius = 55,
   opacity = 1,
   zIndex = 0,
 } = Astro.props;
@@ -162,7 +163,10 @@ const {
      noch per drawImage skaliert gezeichnet — deutlich schaerfer als arc()
      und guenstiger als ein Farbverlauf pro Stern und Frame.
      --------------------------------------------- */
-  const SPRITE = 96;
+  /* Quellaufloesung der Sprites. Ein heller Stern wird bei hoher
+     Pixeldichte mit ueber 110 Geraetepixeln gezeichnet — aus einer
+     96er-Quelle waere das Hochskalieren und damit sichtbar weich. */
+  const SPRITE = 160;
 
   function makeSprite(rgb: string, spikes: boolean) {
     const c = document.createElement('canvas');
@@ -173,7 +177,7 @@ const {
     if (spikes) {
       // vier Beugungsstrahlen, wie sie eine Optik erzeugt
       g.save();
-      g.filter = 'blur(1.4px)';
+      g.filter = `blur(${(SPRITE * 0.0146).toFixed(2)}px)`;
       g.globalCompositeOperation = 'lighter';
       for (let k = 0; k < 2; k++) {
         const grad = g.createLinearGradient(k ? 0 : m, k ? m : 0, k ? SPRITE : m, k ? m : SPRITE);
@@ -311,12 +315,14 @@ const {
     if (steps.length === 0) steps.push(FORMATIONS.field);
 
     const CFG = {
-      density: Number(ds.density) || 1300,
-      maxCount: Number(ds.maxCount) || 3200,
-      minCount: 200,
+      density: Number(ds.density) || 1050,
+      maxCount: Number(ds.maxCount) || 4200,
+      // Untergrenze: auf kleinen Viewports greift sonst nur die Flaechenrechnung
+      // und das Feld wirkt leer gefegt
+      minCount: 320,
       maxDpr: 2.5,
-      repelRadius: Number(ds.repelRadius) || 220,
-      repelForce: 34,   // Stärke der Abstoßung
+      repelRadius: Number(ds.repelRadius) || 55,
+      repelForce: 12,   // Stärke der Abstoßung
       spring: 0.014,    // Rückstellkraft zur Zielposition
       damping: 0.87,    // Reibung — kleiner = beruhigt sich schneller
       driftAmp: 16,     // Eigenleben im Stillstand
