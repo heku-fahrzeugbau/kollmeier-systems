@@ -16,4 +16,4 @@ npm run build
 npm run preview
 ```
 
-Der statische Build wird in `dist/` erzeugt und kann bei IONOS bereitgestellt werden. Das Kontaktformular nutzt Web3Forms.
+Der statische Build wird in `dist/` erzeugt. Deployment läuft über Vercel: ein Push auf `main` geht live, Branch-Pushes erzeugen ein Preview-Deployment. Das Kontaktformular nutzt Web3Forms.
