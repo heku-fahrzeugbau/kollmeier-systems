@@ -584,6 +584,14 @@ const process = [
   /* Früher blueprint-blaue Fläche. Das Blau lebt jetzt nur noch im Akzent. */
   .about-section { padding: clamp(6rem,11vw,10rem) 0; overflow: hidden; color: #edf0f3; }
   .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,9vw,9rem); }
+  /*
+    1fr heißt minmax(auto, 1fr), und das auto-Minimum ist die Min-Content-Breite.
+    Ein Wort wie "Ingenieurdenken" ist damit breiter als die Spalte, sprengt das
+    Grid und wird vom overflow:hidden der Section rechts abgeschnitten.
+  */
+  .about-layout > *, .contact-layout > *, .section-intro > *,
+  .projects-heading > *, .process-layout > * { min-width: 0; }
+  .about-statement h2, .contact-copy h2 { hyphens: auto; overflow-wrap: break-word; }
   .about-section .eyebrow { color: var(--blueprint); }
   .about-statement h2 { margin: 1rem 0 0; font-size: clamp(3rem,6vw,6.5rem); letter-spacing: -.046em; line-height: .95; }
   .about-lead { margin-top: 0; font-size: clamp(1.4rem,2.5vw,2rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.25; }
@@ -676,7 +684,7 @@ const process = [
       gap: 0;
       padding: .5rem 0 1rem;
       border-bottom: 1px solid rgba(255,255,255,.13);
-      background: rgba(11,14,18,.97);
+      background: rgba(0,0,0,.97);
       backdrop-filter: blur(18px);
       font-size: 1rem;
       opacity: 0;
@@ -756,7 +764,7 @@ const process = [
     .project-grid { grid-template-columns: 1fr; }
     .project-card, .project-card:last-child { grid-column: auto; min-height: 520px; }
     .process-copy { position: static; }
-    .about-statement h2 { font-size: clamp(3.2rem,15vw,5rem); }
+    .about-statement h2 { font-size: clamp(2.6rem,12.5vw,5rem); }
     .form-grid { grid-template-columns: 1fr; gap: 0; }
     .form-footer { align-items: stretch; flex-direction: column; }
     .footer-grid { grid-template-columns: 1fr auto; }

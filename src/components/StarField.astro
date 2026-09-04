@@ -246,11 +246,19 @@ const {
     };
     /* Bewusst kompakt: die Zahl der Sterne ist fest, also entscheidet die
        Groesse des Schriftzugs, wie dicht die Striche besetzt sind. Zu gross
-       und die Buchstaben zerfallen in lose Punktwolken. */
-    const maxW = sw * 0.46;
+       und die Buchstaben zerfallen in lose Punktwolken.
+
+       Der Anteil haengt am Seitenverhaeltnis: "KS" ist eine breite, niedrige
+       Form. Auf einem hochkanten Display schrumpft sie bei festem Anteil in
+       sich zusammen — bei 390x844 waren es 46 % der Breite, aber nur 14 % der
+       Hoehe, ein unlesbarer Klumpen. Schmale Viewports brauchen deshalb einen
+       deutlich groesseren Anteil. */
+    const maxW = sw * (W / H < 1.1 ? 0.82 : 0.46);
     if (setFont() > maxW) size *= maxW / setFont();
     try {
-      (g as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = `${size * 0.03}px`;
+      // Mehr Luft zwischen K und S: aus Sternen gebaut laufen enge
+      // Buchstaben sonst zu einer Wolke zusammen
+      (g as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = `${size * 0.09}px`;
     } catch {
       /* aeltere Browser koennen kein letterSpacing — dann eben ohne */
     }
@@ -317,9 +325,10 @@ const {
     const CFG = {
       density: Number(ds.density) || 1050,
       maxCount: Number(ds.maxCount) || 4200,
-      // Untergrenze: auf kleinen Viewports greift sonst nur die Flaechenrechnung
-      // und das Feld wirkt leer gefegt
-      minCount: 320,
+      /* Untergrenze: auf kleinen Viewports greift sonst nur die Flaechenrechnung
+         und das Feld wirkt leer gefegt. Sie bestimmt dort ausserdem, wie gut
+         der KS-Schriftzug besetzt ist — bei 320 Sternen blieb er ein Fleck. */
+      minCount: 1100,
       maxDpr: 2.5,
       repelRadius: Number(ds.repelRadius) || 55,
       repelForce: 12,   // Stärke der Abstoßung
@@ -333,7 +342,7 @@ const {
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const coarse = matchMedia('(pointer: coarse)').matches;
 
-    let W = 0, H = 0, dpr = 1;
+    let W = 0, H = 0, dpr = 1, sizeScale = 1;
     let stars: Star[] = [];
     const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
     let scrollTarget = 0, scrollEased = 0;
@@ -377,6 +386,12 @@ const {
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.imageSmoothingQuality = 'high';
+      /* Auf schmalen Viewports muessen die Sterne kleiner werden. Sie haetten
+         sonst dieselbe physische Groesse wie am Desktop, waehrend die Striche
+         des KS-Schriftzugs nur einen Bruchteil so breit sind — die Halos
+         ueberstrahlen dann die Buchstabenform. Nebenbei wirkt das Feld auf
+         dichten Displays feiner. */
+      sizeScale = Math.max(0.45, Math.min(1, W / 900));
       build();
       // Glyphenpunkte gleich hier berechnen statt beim ersten Scrollen in die
       // Formation — sonst kostet das getImageData mitten im Scrollen ein Frame
@@ -505,7 +520,7 @@ const {
         ctx.globalAlpha = (bucket + 0.5) / ALPHA_STEPS;
         for (let j = 0; j < list.length; j++) {
           const s = stars[list[j]];
-          const r = s.size * (bright ? 12 : 8) * (1 + s.glow * 1.2);
+          const r = s.size * sizeScale * (bright ? 12 : 8) * (1 + s.glow * 1.2);
           ctx.drawImage(img, s.x - r, s.y - r, r * 2, r * 2);
         }
       }
