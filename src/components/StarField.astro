@@ -226,7 +226,10 @@ const {
   let textCache: { key: string; pts: number[] } = { key: '', pts: [] };
 
   function textPoints(text: string, W: number, H: number) {
-    const key = `${text}|${Math.round(W)}x${Math.round(H)}`;
+    /* Hoehe grob gerastert: mobile Browser aendern sie beim Scrollen staendig
+       um 60-100 px, weil die Adressleiste ein- und ausfaehrt. Auf die Pixel
+       genau zu cachen hiesse, den Schriftzug dabei jedes Mal neu zu rastern. */
+    const key = `${text}|${Math.round(W)}x${Math.round(H / 120) * 120}`;
     if (textCache.key === key) return textCache.pts;
 
     const sw = 480;
@@ -322,6 +325,9 @@ const {
       .filter(Boolean);
     if (steps.length === 0) steps.push(FORMATIONS.field);
 
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const coarse = matchMedia('(pointer: coarse)').matches;
+
     const CFG = {
       density: Number(ds.density) || 1050,
       maxCount: Number(ds.maxCount) || 4200,
@@ -334,24 +340,36 @@ const {
       repelForce: 12,   // Stärke der Abstoßung
       spring: 0.014,    // Rückstellkraft zur Zielposition
       damping: 0.87,    // Reibung — kleiner = beruhigt sich schneller
-      driftAmp: 16,     // Eigenleben im Stillstand
+      driftAmp: coarse ? 9 : 16,   // Eigenleben im Stillstand
       driftSpeed: 0.00022,
-      morphEase: 0.06,  // Trägheit beim Formationswechsel
+      morphEase: coarse ? 0.045 : 0.06, // Trägheit beim Formationswechsel
+      /* Obergrenze, wie weit der Formationsfortschritt wandern darf — als
+         Anteil pro SEKUNDE, nicht pro Frame. Pro Frame gerechnet greift die
+         Bremse auf einem 144-Hz-Display nur halb so stark wie auf 60 Hz.
+         Ohne sie zieht ein schneller Wisch das halbe Feld quer über den
+         Bildschirm — auf dem Handy der Hauptgrund für unruhige Sterne. */
+      morphMaxRate: coarse ? 0.5 : 20,
     };
 
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const coarse = matchMedia('(pointer: coarse)').matches;
-
     let W = 0, H = 0, dpr = 1, sizeScale = 1;
+    let builtW = 0, builtH = 0; // Maße, für die das Feld zuletzt aufgebaut wurde
     let stars: Star[] = [];
     const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
     let scrollTarget = 0, scrollEased = 0;
     let raf = 0, running = false, visible = true;
+    let lastFrame = 0;
 
     function build() {
       let n = Math.round((W * H) / CFG.density);
       if (coarse) n = Math.round(n * 0.55);
       n = Math.max(CFG.minCount, Math.min(CFG.maxCount, n));
+
+      /* Vorhandene Sterne behalten ihre Position, nur auf die neuen Maße
+         umgerechnet. Sonst schnappt bei jedem Neuaufbau das ganze Feld
+         zurück auf die Startpositionen. */
+      const alt = stars;
+      const skalaX = builtW ? W / builtW : 1;
+      const skalaY = builtH ? H / builtH : 1;
 
       stars = new Array(n);
       for (let i = 0; i < n; i++) {
@@ -359,9 +377,13 @@ const {
         const r4 = rand(i * 8 + 3), r5 = rand(i * 8 + 4), r6 = rand(i * 8 + 5);
         const r7 = rand(i * 8 + 6), r8 = rand(i * 8 + 7);
         const depth = 0.35 + r3 * 0.65; // 0.35 = fern, 1 = nah
+        const vorher = alt[i];
         stars[i] = {
           seedX: r1, seedY: r2, depth,
-          x: r1 * W, y: r2 * H, vx: 0, vy: 0,
+          x: vorher ? vorher.x * skalaX : r1 * W,
+          y: vorher ? vorher.y * skalaY : r2 * H,
+          vx: vorher ? vorher.vx : 0,
+          vy: vorher ? vorher.vy : 0,
           tx: 0, ty: 0, glow: 0,
           phase: r3 * Math.PI * 2,
           // Groesse und Helligkeit potenziert: viele schwache, wenige starke
@@ -392,7 +414,15 @@ const {
          ueberstrahlen dann die Buchstabenform. Nebenbei wirkt das Feld auf
          dichten Displays feiner. */
       sizeScale = Math.max(0.45, Math.min(1, W / 900));
-      build();
+      /* Nur neu aufbauen, wenn sich die Breite ändert oder die Höhe deutlich.
+         Mobile Browser feuern resize bei jedem Ein- und Ausfahren der
+         Adressleiste — dort jedes Mal neu aufzubauen ließ das ganze Feld
+         springen (gemessen: 85-fache Bewegung gegenüber dem Ruhezustand). */
+      if (builtW === 0 || W !== builtW || Math.abs(H - builtH) > builtH * 0.3) {
+        build();
+        builtW = W;
+        builtH = H;
+      }
       // Glyphenpunkte gleich hier berechnen statt beim ersten Scrollen in die
       // Formation — sonst kostet das getImageData mitten im Scrollen ein Frame
       if (steps.includes(FORMATIONS.ks)) textPoints('KS', W, H);
@@ -440,7 +470,13 @@ const {
     function step(time: number) {
       raf = requestAnimationFrame(step);
 
-      scrollEased += (scrollTarget - scrollEased) * CFG.morphEase;
+      // Zeit seit dem letzten Frame, gedeckelt gegen Sprünge nach Tab-Wechseln
+      const dt = lastFrame ? Math.min(0.05, (time - lastFrame) / 1000) : 0.016;
+      lastFrame = time;
+
+      const morphDelta = (scrollTarget - scrollEased) * CFG.morphEase;
+      const grenze = CFG.morphMaxRate * dt;
+      scrollEased += morphDelta > grenze ? grenze : morphDelta < -grenze ? -grenze : morphDelta;
       applyTargets(scrollEased, time);
 
       mouse.x += (mouse.tx - mouse.x) * 0.18;
@@ -542,6 +578,7 @@ const {
     function start() {
       if (!running && visible && !reduceMotion) {
         running = true;
+        lastFrame = 0; // nach einer Pause nicht mit einem Riesen-dt weiterrechnen
         raf = requestAnimationFrame(step);
       }
     }
