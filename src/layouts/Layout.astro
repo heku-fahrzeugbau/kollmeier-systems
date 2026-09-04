@@ -1,14 +1,21 @@
 ---
 import '../styles/global.css'
+import StarField from '../components/StarField.astro'
 
 interface Props {
   title?: string
   description?: string
+  /** Deckkraft des Sternenfelds. Auf Textseiten bewusst niedriger. */
+  starfieldOpacity?: number
+  /** Formationen, die der Scroll durchläuft. Leer = ruhiges Feld ohne Muster. */
+  starfieldFormations?: string
 }
 
 const {
   title = 'Kollmeier Systems — Konstruktion, Automatisierung & technische KI',
   description = 'Ingenieursleistungen aus Bielefeld: CAD-Konstruktion, Automatisierung, 3D-Druck und technische KI-Lösungen für kleine und mittlere Unternehmen.',
+  starfieldOpacity = 0.82,
+  starfieldFormations = 'field,grid,orbit,spiral,wave',
 } = Astro.props
 
 const ogImage = new URL('og-image.jpg', Astro.site).href
@@ -21,7 +28,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0b0e12" />
+    <meta name="theme-color" content="#000000" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -43,6 +50,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
     <title>{title}</title>
   </head>
   <body>
+    <StarField mode="page" opacity={starfieldOpacity} formations={starfieldFormations} />
     <slot />
   </body>
 </html>
