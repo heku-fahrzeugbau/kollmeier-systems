@@ -20,13 +20,15 @@
  */
 interface Props {
   mode?: 'section' | 'page';
-  /** Formationen in Scroll-Reihenfolge: field | grid | orbit | spiral | wave */
+  /** Formationen in Scroll-Reihenfolge: field | grid | ks | orbit | spiral | wave.
+   *  Ein Name zweimal hintereinander lässt die Formation über den ganzen
+   *  Abschnitt dazwischen stehen, statt sofort weiterzuwandern. */
   formations?: string;
-  /** Fläche in px² pro Stern. Kleiner = mehr Sterne. Default 2200 */
+  /** Fläche in px² pro Stern. Kleiner = mehr Sterne. Default 1300 */
   density?: number;
-  /** Obergrenze der Sternanzahl (Performance-Bremse). Default 2400 */
+  /** Obergrenze der Sternanzahl (Performance-Bremse). Default 3200 */
   maxCount?: number;
-  /** Wirkradius des Cursors in px. Default 170 */
+  /** Wirkradius des Cursors in px. Default 220 */
   repelRadius?: number;
   /** Deckkraft des Feldes, 0–1. Default 1 */
   opacity?: number;
@@ -35,10 +37,10 @@ interface Props {
 }
 const {
   mode = 'section',
-  formations = 'field,grid,orbit,spiral,wave',
-  density = 2200,
-  maxCount = 2400,
-  repelRadius = 170,
+  formations = 'field,grid,ks,ks,spiral,wave',
+  density = 1300,
+  maxCount = 3200,
+  repelRadius = 220,
   opacity = 1,
   zIndex = 0,
 } = Astro.props;
@@ -72,14 +74,32 @@ const {
     x: number; y: number; vx: number; vy: number;
     tx: number; ty: number; glow: number;
     phase: number; size: number; alpha: number; ci: number;
-    twPhase: number; twSpeed: number; bright: boolean;
+    twPhase: number; twSpeed: number; bright: boolean; pick: number;
   };
   type Formation = (s: Star, i: number, n: number, W: number, H: number) => void;
 
-  // Palette aus global.css: paper / signal / blueprint
-  const COLORS = ['232,236,242', '255,96,56', '113,128,255'];
-  const SHARE_SIGNAL = 0.09;
-  const SHARE_BLUEPRINT = 0.05;
+  /* Echte Sterne sind nicht weiss, sondern haben eine Farbtemperatur —
+     von heissem Blauweiss bis zu kuehlem Orange. Die Verteilung ist ans
+     blosse Auge angelehnt, nicht an die Haeufigkeit am echten Himmel.
+     Die letzten beiden Eintraege sind die Markenfarben aus global.css. */
+  const PALETTE: Array<{ rgb: string; w: number }> = [
+    { rgb: '170,197,255', w: 0.05 }, // heisses Blauweiss
+    { rgb: '212,226,255', w: 0.20 }, // blaeulich weiss
+    { rgb: '248,247,255', w: 0.34 }, // weiss
+    { rgb: '255,244,232', w: 0.18 }, // gelblich weiss
+    { rgb: '255,222,190', w: 0.09 }, // orange
+    { rgb: '255,96,56',   w: 0.09 }, // signal
+    { rgb: '113,128,255', w: 0.05 }, // blueprint
+  ];
+
+  function pickColor(r: number) {
+    let acc = 0;
+    for (let i = 0; i < PALETTE.length; i++) {
+      acc += PALETTE[i].w;
+      if (r < acc) return i;
+    }
+    return PALETTE.length - 1;
+  }
 
   /* ---------------- FORMATIONEN ----------------
      Jede Funktion schreibt die Zielposition von Stern i.
@@ -173,11 +193,11 @@ const {
     // Kern + Halo: steiler Abfall innen, langer flacher Ausklang aussen
     const grad = g.createRadialGradient(m, m, 0, m, m, m);
     grad.addColorStop(0.0, `rgba(${rgb},1)`);
-    grad.addColorStop(0.06, `rgba(${rgb},0.92)`);
-    grad.addColorStop(0.13, `rgba(${rgb},0.42)`);
-    grad.addColorStop(0.26, `rgba(${rgb},0.13)`);
-    grad.addColorStop(0.48, `rgba(${rgb},0.04)`);
-    grad.addColorStop(0.75, `rgba(${rgb},0.012)`);
+    grad.addColorStop(0.035, `rgba(${rgb},0.95)`);
+    grad.addColorStop(0.085, `rgba(${rgb},0.52)`);
+    grad.addColorStop(0.17, `rgba(${rgb},0.17)`);
+    grad.addColorStop(0.34, `rgba(${rgb},0.055)`);
+    grad.addColorStop(0.62, `rgba(${rgb},0.015)`);
     grad.addColorStop(1.0, `rgba(${rgb},0)`);
     g.globalCompositeOperation = 'lighter';
     g.fillStyle = grad;
@@ -188,10 +208,82 @@ const {
   let SPRITES: Array<{ plain: HTMLCanvasElement; bright: HTMLCanvasElement }> | null = null;
   function sprites() {
     if (!SPRITES) {
-      SPRITES = COLORS.map((rgb) => ({ plain: makeSprite(rgb, false), bright: makeSprite(rgb, true) }));
+      SPRITES = PALETTE.map((c) => ({ plain: makeSprite(c.rgb, false), bright: makeSprite(c.rgb, true) }));
     }
     return SPRITES;
   }
+
+  /* ---------------- SCHRIFT ALS FORMATION ----------------
+     Der Schriftzug wird in ein kleines Offscreen-Canvas gerendert, dessen
+     Seitenverhaeltnis dem Fenster entspricht. Danach werden die gesetzten
+     Pixel als normierte Zielpunkte eingesammelt; jeder Stern greift sich
+     davon deterministisch einen. Pro Fenstergroesse einmal berechnet.
+     ----------------------------------------------------- */
+  let textCache: { key: string; pts: number[] } = { key: '', pts: [] };
+
+  function textPoints(text: string, W: number, H: number) {
+    const key = `${text}|${Math.round(W)}x${Math.round(H)}`;
+    if (textCache.key === key) return textCache.pts;
+
+    const sw = 480;
+    const sh = Math.max(120, Math.min(1200, Math.round((sw * H) / Math.max(1, W))));
+    const c = document.createElement('canvas');
+    c.width = sw;
+    c.height = sh;
+    const g = c.getContext('2d', { willReadFrequently: true })!;
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.fillStyle = '#fff';
+
+    let size = sh * 0.58;
+    const setFont = () => {
+      g.font = `700 ${size}px Arial, Helvetica, sans-serif`;
+      return g.measureText(text).width;
+    };
+    /* Bewusst kompakt: die Zahl der Sterne ist fest, also entscheidet die
+       Groesse des Schriftzugs, wie dicht die Striche besetzt sind. Zu gross
+       und die Buchstaben zerfallen in lose Punktwolken. */
+    const maxW = sw * 0.46;
+    if (setFont() > maxW) size *= maxW / setFont();
+    try {
+      (g as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = `${size * 0.03}px`;
+    } catch {
+      /* aeltere Browser koennen kein letterSpacing — dann eben ohne */
+    }
+    setFont();
+    g.fillText(text, sw / 2, sh / 2);
+
+    const d = g.getImageData(0, 0, sw, sh).data;
+    const pts: number[] = [];
+    for (let y = 0; y < sh; y++) {
+      for (let x = 0; x < sw; x++) {
+        if (d[(y * sw + x) * 4 + 3] > 140) pts.push(x / sw, y / sh);
+      }
+    }
+    textCache = { key, pts };
+    return pts;
+  }
+
+  // Schriftzug als Zielformation — greift auf FORMATIONS zu, sobald es steht
+  FORMATIONS.ks = (s, i, n, W, H) => {
+    const pts = textPoints('KS', W, H);
+    const count = pts.length >> 1;
+    if (count === 0) {
+      s.tx = W / 2;
+      s.ty = H / 2;
+      return;
+    }
+    /* Gleichmaessig ueber die Glyphenpixel verteilen statt zufaellig greifen:
+       zufaelliges Greifen erzeugt Klumpen und Loecher, und die Buchstaben
+       zerfallen. Der Versatz aus s.pick bricht nur die Rasterkanten auf. */
+    const stride = count / n;
+    let k = Math.round(i * stride + (s.pick - 0.5) * stride);
+    if (k < 0) k = 0;
+    else if (k >= count) k = count - 1;
+    k *= 2;
+    s.tx = pts[k] * W;
+    s.ty = pts[k + 1] * H;
+  };
 
   const smoothstep = (t: number) => t * t * (3 - 2 * t);
   const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : t);
@@ -219,12 +311,12 @@ const {
     if (steps.length === 0) steps.push(FORMATIONS.field);
 
     const CFG = {
-      density: Number(ds.density) || 2200,
-      maxCount: Number(ds.maxCount) || 2400,
+      density: Number(ds.density) || 1300,
+      maxCount: Number(ds.maxCount) || 3200,
       minCount: 200,
       maxDpr: 2.5,
-      repelRadius: Number(ds.repelRadius) || 170,
-      repelForce: 26,   // Stärke der Abstoßung
+      repelRadius: Number(ds.repelRadius) || 220,
+      repelForce: 34,   // Stärke der Abstoßung
       spring: 0.014,    // Rückstellkraft zur Zielposition
       damping: 0.87,    // Reibung — kleiner = beruhigt sich schneller
       driftAmp: 16,     // Eigenleben im Stillstand
@@ -250,7 +342,7 @@ const {
       for (let i = 0; i < n; i++) {
         const r1 = rand(i * 8), r2 = rand(i * 8 + 1), r3 = rand(i * 8 + 2);
         const r4 = rand(i * 8 + 3), r5 = rand(i * 8 + 4), r6 = rand(i * 8 + 5);
-        const r7 = rand(i * 8 + 6);
+        const r7 = rand(i * 8 + 6), r8 = rand(i * 8 + 7);
         const depth = 0.35 + r3 * 0.65; // 0.35 = fern, 1 = nah
         stars[i] = {
           seedX: r1, seedY: r2, depth,
@@ -260,10 +352,11 @@ const {
           // Groesse und Helligkeit potenziert: viele schwache, wenige starke
           size: 0.35 + Math.pow(r5, 1.7) * 1.55 * (0.55 + depth * 0.45),
           alpha: 0.1 + Math.pow(r5, 2.1) * 0.9,
-          ci: r4 < SHARE_SIGNAL ? 1 : r4 < SHARE_SIGNAL + SHARE_BLUEPRINT ? 2 : 0,
+          ci: pickColor(r4),
           twPhase: r6 * Math.PI * 2,
           twSpeed: 0.0004 + r6 * 0.0011,
           bright: r7 > 0.955,
+          pick: r8,
         };
       }
     }
@@ -279,6 +372,9 @@ const {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.imageSmoothingQuality = 'high';
       build();
+      // Glyphenpunkte gleich hier berechnen statt beim ersten Scrollen in die
+      // Formation — sonst kostet das getImageData mitten im Scrollen ein Frame
+      if (steps.includes(FORMATIONS.ks)) textPoints('KS', W, H);
       if (reduceMotion) drawStatic();
     }
 
@@ -370,7 +466,7 @@ const {
        ~2000 Zustandswechsel anfallen. */
     const ALPHA_STEPS = 12;
     const batches: number[][] = [];
-    for (let i = 0; i < COLORS.length * 2 * ALPHA_STEPS; i++) batches.push([]);
+    for (let i = 0; i < PALETTE.length * 2 * ALPHA_STEPS; i++) batches.push([]);
 
     function draw(time: number) {
       ctx.clearRect(0, 0, W, H);
@@ -380,8 +476,13 @@ const {
 
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i];
-        const tw = 0.74 + 0.26 * Math.sin(time * s.twSpeed + s.twPhase); // Funkeln
-        const a = Math.min(1, s.alpha * tw + s.glow * 0.55);
+        // Zwei ueberlagerte Frequenzen: das Funkeln wird unregelmaessig,
+        // statt gleichmaessig zu pulsieren
+        const tw =
+          0.7 +
+          0.19 * Math.sin(time * s.twSpeed + s.twPhase) +
+          0.11 * Math.sin(time * s.twSpeed * 2.7 + s.twPhase * 1.9);
+        const a = Math.min(1, s.alpha * tw + s.glow * 0.75);
         if (a <= 0.012) continue;
         const bucket = Math.min(ALPHA_STEPS - 1, (a * ALPHA_STEPS) | 0);
         batches[(s.ci * 2 + (s.bright ? 1 : 0)) * ALPHA_STEPS + bucket].push(i);
@@ -398,7 +499,7 @@ const {
         ctx.globalAlpha = (bucket + 0.5) / ALPHA_STEPS;
         for (let j = 0; j < list.length; j++) {
           const s = stars[list[j]];
-          const r = s.size * (bright ? 10 : 7) * (1 + s.glow * 0.9);
+          const r = s.size * (bright ? 12 : 8) * (1 + s.glow * 1.2);
           ctx.drawImage(img, s.x - r, s.y - r, r * 2, r * 2);
         }
       }
