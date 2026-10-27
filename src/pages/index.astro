@@ -28,30 +28,6 @@ const services = [
   },
 ]
 
-const projects = [
-  {
-    number: '01',
-    status: 'Realisiert',
-    title: 'Automatisierte Verpackungsanlage',
-    text: 'Eigenentwicklung einer Anlage zum Verpacken von Holzplatten mit Pappkartonage und anschließendem Abstapeln auf Europaletten.',
-    tags: ['Maschinenbau', 'Automatisierung', 'Palettierung'],
-  },
-  {
-    number: '02',
-    status: 'In Entwicklung',
-    title: 'Löffel-Sortieranlage',
-    text: 'Maßgeschneiderte Förder- und Sortierlösung für einen Spritzgussbetrieb — abgestimmt auf Produktgeometrie und geforderten Durchsatz.',
-    tags: ['Konstruktion', 'Fördertechnik', 'Spritzguss'],
-  },
-  {
-    number: '03',
-    status: 'Laufend',
-    title: 'Produkt- & CAD-Entwicklung',
-    text: 'Parametrische Konstruktionen für Maschinenkomponenten, Displays, Marketingartikel und technische Produktvarianten.',
-    tags: ['CAD', 'DFAM', 'Produktentwicklung'],
-  },
-]
-
 const process = [
   ['01', 'Verstehen', 'Aufgabe, Randbedingungen und gewünschtes Ergebnis sauber festhalten.'],
   ['02', 'Entwickeln', 'Lösungswege bewerten und eine belastbare technische Richtung ausarbeiten.'],
@@ -69,7 +45,6 @@ const process = [
       </a>
       <div class="nav-links" id="nav-links">
         <a href="#leistungen">Leistungen</a>
-        <a href="#projekte">Projekte</a>
         <a href="#prozess">Vorgehen</a>
         <a href="#ueber-mich">Über mich</a>
       </div>
@@ -107,7 +82,6 @@ const process = [
           </p>
           <div class="hero-actions hero-enter" style="--enter-delay: 260ms">
             <a href="#kontakt" class="button button--signal">Projekt unverbindlich besprechen <span aria-hidden="true">↗</span></a>
-            <a href="#projekte" class="button button--ghost">Arbeiten ansehen</a>
           </div>
           <dl class="hero-facts hero-enter" style="--enter-delay: 330ms">
             <div><dt>Fokus</dt><dd>CAD · Automation · DFAM</dd></div>
@@ -177,42 +151,6 @@ const process = [
             </article>
           ))}
         </div>
-      </div>
-    </section>
-
-    <section id="projekte" class="projects-section">
-      <div class="shell">
-        <p class="eyebrow">Ausgewählte Arbeiten</p>
-        <div class="projects-heading reveal-item" data-reveal>
-          <h2 class="section-title">Probleme werden Projekte.<br />Projekte werden Lösungen.</h2>
-          <p>Ein Einblick in Aufgaben aus Maschinenbau, Automatisierung und Produktentwicklung.</p>
-        </div>
-
-        <div class="project-grid">
-          {projects.map((project, index) => (
-            <article class="project-card reveal-item" data-reveal style={`--reveal-delay: ${index * 90}ms`}>
-              <div class="project-topline">
-                <span class="project-number">{project.number}</span>
-                <span class="project-status"><i aria-hidden="true"></i>{project.status}</span>
-              </div>
-              <div class="project-diagram" aria-hidden="true">
-                <span class="diagram-node node-a"></span>
-                <span class="diagram-node node-b"></span>
-                <span class="diagram-node node-c"></span>
-                <span class="diagram-line line-a"></span>
-                <span class="diagram-line line-b"></span>
-              </div>
-              <div class="project-content">
-                <h3>{project.title}</h3>
-                <p>{project.text}</p>
-                <ul aria-label="Projektbereiche">
-                  {project.tags.map((tag) => <li>{tag}</li>)}
-                </ul>
-              </div>
-            </article>
-          ))}
-        </div>
-        <p class="nda-note">Weitere Arbeiten unterliegen teilweise der Vertraulichkeit und können im persönlichen Gespräch eingeordnet werden.</p>
       </div>
     </section>
 
@@ -543,34 +481,6 @@ const process = [
     .visual-frame:hover { border-color: #596573; }
   }
 
-  .projects-section { padding: clamp(6rem,11vw,10rem) 0; }
-  .projects-heading { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: end; margin-bottom: 4.5rem; }
-  .projects-heading p { color: #8e96a0; line-height: 1.6; }
-  .project-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
-  .project-card { min-height: 580px; display: flex; flex-direction: column; padding: 1.25rem; border: 1px solid var(--hairline); background: var(--glass); backdrop-filter: blur(12px); transition: border-color var(--dur-hover) var(--ease-out), transform var(--dur-hover) var(--ease-out); }
-  .project-topline { display: flex; justify-content: space-between; align-items: center; color: #89919b; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
-
-  @media (hover: hover) and (pointer: fine) {
-    .project-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,.26); }
-  }
-  .project-number { color: var(--signal); font-size: .75rem; }
-  .project-status { display: flex; align-items: center; gap: .5rem; }
-  .project-status i { width: .38rem; aspect-ratio: 1; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px rgba(255,96,56,.1); }
-  .project-diagram { position: relative; height: 220px; margin: 1.25rem 0 2rem; overflow: hidden; border: 1px solid #272e37; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size: 1.5rem 1.5rem; }
-  .diagram-node { position: absolute; z-index: 2; width: 2.75rem; aspect-ratio: 1; border: 1px solid #66717d; border-radius: 50%; background: #171d25; }
-  .node-a { top: 25%; left: 12%; }
-  .node-b { top: 55%; left: 44%; border-radius: 0; transform: rotate(45deg); border-color: var(--signal); }
-  .node-c { top: 20%; right: 12%; width: 4rem; }
-  .diagram-line { position: absolute; height: 1px; background: #67717c; transform-origin: left center; }
-  .line-a { top: 41%; left: 23%; width: 42%; transform: rotate(16deg); }
-  .line-b { top: 53%; left: 56%; width: 34%; transform: rotate(-27deg); }
-  .project-content { margin-top: auto; }
-  .project-content h3 { margin: 0 0 .8rem; color: white; font-size: 1.35rem; letter-spacing: -.035em; }
-  .project-content p { min-height: 5.5rem; margin: 0; color: #939ba5; font-size: .9rem; line-height: 1.65; }
-  .project-content ul { display: flex; flex-wrap: wrap; gap: .45rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
-  .project-content li { padding: .38rem .55rem; border: 1px solid #323a44; color: #9da5af; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; }
-  .nda-note { margin: 2rem 0 0; color: #777f89; font-size: .8rem; }
-
   .process-section { padding: clamp(6rem,11vw,10rem) 0; }
   .process-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(3rem,9vw,9rem); }
   .process-copy { position: sticky; top: 8rem; align-self: start; }
@@ -589,8 +499,7 @@ const process = [
     Ein Wort wie "Ingenieurdenken" ist damit breiter als die Spalte, sprengt das
     Grid und wird vom overflow:hidden der Section rechts abgeschnitten.
   */
-  .about-layout > *, .contact-layout > *, .section-intro > *,
-  .projects-heading > *, .process-layout > * { min-width: 0; }
+  .about-layout > *, .contact-layout > *, .section-intro > *, .process-layout > * { min-width: 0; }
   .about-statement h2, .contact-copy h2 { hyphens: auto; overflow-wrap: break-word; }
   .about-section .eyebrow { color: var(--blueprint); }
   .about-statement h2 { margin: 1rem 0 0; font-size: clamp(3rem,6vw,6.5rem); letter-spacing: -.046em; line-height: .95; }
@@ -653,16 +562,10 @@ const process = [
 
   .motion-enabled [data-reveal] { opacity: 0; translate: 0 1.6rem; transition: opacity var(--dur-reveal) var(--ease-out), translate var(--dur-reveal) var(--ease-out); transition-delay: var(--reveal-delay, 0ms); }
   .motion-enabled [data-reveal].is-visible { opacity: 1; translate: 0 0; }
-  .project-diagram .diagram-line { clip-path: inset(0 100% 0 0); transition: clip-path .7s var(--ease-out) .2s; }
-  .project-diagram .diagram-node { opacity: .12; transition: opacity .4s var(--ease-out), border-color .4s var(--ease-out), box-shadow .4s var(--ease-out); }
-  .project-card.is-visible .diagram-line { clip-path: inset(0 0 0 0); }
-  .project-card.is-visible .diagram-node { opacity: 1; }
-  .project-card.is-visible .node-b { box-shadow: 0 0 0 8px rgba(255,96,56,.08), 0 0 32px rgba(255,96,56,.16); }
-
   /* Auf Touch-Geräten ist backdrop-filter über einem animierten Canvas teuer.
      Dort werden die Glasflächen deckend statt unscharf. */
   @media (pointer: coarse) {
-    .project-card, .contact-form, .visual-frame { backdrop-filter: none; background: #0d1117; }
+    .contact-form, .visual-frame { backdrop-filter: none; background: #0d1117; }
   }
 
   @keyframes hero-enter {
@@ -733,8 +636,6 @@ const process = [
     .hero-copy h1 { font-size: clamp(3.8rem,9vw,6rem); }
     .service-row { grid-template-columns: 3rem 1fr 1.4fr; }
     .service-meta { grid-column: 2 / -1; }
-    .project-grid { grid-template-columns: 1fr 1fr; }
-    .project-card:last-child { grid-column: 1 / -1; min-height: 480px; }
     .contact-layout { grid-template-columns: 1fr; }
   }
 
@@ -758,11 +659,9 @@ const process = [
     .visual-frame { aspect-ratio: 1.1; }
     .visual-3d { --cube: 7rem; }
     .hero-strip { flex-direction: column; }
-    .section-intro, .projects-heading, .process-layout, .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .section-intro, .process-layout, .about-layout { grid-template-columns: 1fr; gap: 2rem; }
     .service-row { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
     .service-row p, .service-meta { grid-column: 2; }
-    .project-grid { grid-template-columns: 1fr; }
-    .project-card, .project-card:last-child { grid-column: auto; min-height: 520px; }
     .process-copy { position: static; }
     .about-statement h2 { font-size: clamp(2.6rem,12.5vw,5rem); }
     .form-grid { grid-template-columns: 1fr; gap: 0; }
@@ -776,8 +675,6 @@ const process = [
     .hero-grid, .hero-enter, .cube { animation: none !important; }
     .hero-enter, .motion-enabled [data-reveal] { opacity: 1; translate: 0 0; transform: none; }
     .visual-frame { transform: none !important; }
-    .project-diagram .diagram-line { clip-path: inset(0 0 0 0); }
-    .project-diagram .diagram-node { opacity: 1; }
     /* Menü blendet weiter ein/aus — nur die Bewegung fällt weg */
     .nav-links { translate: 0 0 !important; }
   }
