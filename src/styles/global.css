@@ -74,10 +74,6 @@ img, svg { display: block; max-width: 100%; }
 .button span { color: var(--signal); font-size: 1rem; }
 .hero-machine { --mx: 0px; --my: 0px; position: relative; width: min(930px, 76vw); margin: clamp(2.5rem, 5vh, 4rem) auto 0; color: var(--ink); border: 1px solid var(--ink); background: rgba(243,240,232,.78); transform: translate3d(var(--mx), var(--my), 0); transition: transform 350ms var(--ease-out); box-shadow: 14px 14px 0 var(--signal); }
 .hero-machine svg { width: 100%; }
-.drawing-lines { stroke-width: 1; opacity: .42; }
-.machine-part { transform-origin: 430px 252px; animation: machine-pulse 8s var(--ease-in-out) infinite; }
-.dimension-lines { opacity: .75; }
-.drawing-copy { font: 500 12px var(--mono); letter-spacing: .12em; }
 .machine-label { position: absolute; display: flex; align-items: center; gap: .6rem; padding: .55rem .7rem; border: 1px solid var(--ink); background: var(--paper); font: 600 .58rem/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; }
 .machine-label span { display: grid; place-items: center; width: 20px; height: 20px; color: var(--paper); background: var(--ink); }
 .machine-label--a { left: -2rem; top: 23%; }
@@ -209,7 +205,6 @@ img, svg { display: block; max-width: 100%; }
 
 @keyframes enter-up { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: translateY(0); } }
 @keyframes orbit-spin { to { transform: rotate(360deg); } }
-@keyframes machine-pulse { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(1.5deg); } }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 @media (max-width: 1100px) {

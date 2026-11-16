@@ -1,0 +1,142 @@
+<svg viewBox="0 0 900 440" role="img" aria-labelledby="assembly-title assembly-description">
+  <title id="assembly-title">Isometrische technische Anlagenvisualisierung</title>
+  <desc id="assembly-description">Konstruktionsdarstellung einer automatisierten Handhabungsstation mit Grundrahmen, Linearachsen, Sensorik und Werkzeugkopf.</desc>
+  <defs>
+    <pattern id="assembly-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="currentColor" stroke-width=".5" opacity=".14" />
+      <circle cx="0" cy="0" r="1" fill="currentColor" opacity=".22" />
+    </pattern>
+    <linearGradient id="metal-top" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fffef9" /><stop offset="1" stop-color="#d9d6ce" />
+    </linearGradient>
+    <linearGradient id="metal-side" x1="0" x2="0" y1="0" y2="1">
+      <stop stop-color="#cbc8c0" /><stop offset="1" stop-color="#aaa79f" />
+    </linearGradient>
+    <linearGradient id="dark-metal" x1="0" x2="1">
+      <stop stop-color="#252520" /><stop offset=".5" stop-color="#0d0d0b" /><stop offset="1" stop-color="#30302a" />
+    </linearGradient>
+    <filter id="assembly-shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#11110f" flood-opacity=".16" />
+    </filter>
+  </defs>
+
+  <rect width="900" height="440" fill="url(#assembly-grid)" />
+
+  <g class="assembly-notes" fill="currentColor">
+    <text x="42" y="52">AUTOMATED HANDLING CELL / ASSY—04</text>
+    <text x="42" y="72">CONFIGURATION: PARAMETRIC</text>
+    <text x="754" y="398">SCALE 1:12</text>
+    <text x="754" y="416">REV. 02 / 16.11.26</text>
+  </g>
+
+  <g class="assembly-dimensions" fill="none" stroke="currentColor">
+    <path d="M176 370h548M176 360v20M724 360v20" />
+    <path d="M747 129v211M737 129h20M737 340h20" />
+    <path d="M126 340l60-35M116 332l20 16" />
+  </g>
+  <g class="assembly-dimension-copy" fill="currentColor">
+    <text x="424" y="392">1240.00</text>
+    <text x="772" y="247" transform="rotate(90 772 247)">680.00</text>
+    <text x="44" y="355">DATUM A</text>
+  </g>
+
+  <g class="assembly-machine" filter="url(#assembly-shadow)">
+    <!-- Grundrahmen -->
+    <path d="M174 294 566 196 724 274 330 374z" fill="url(#metal-top)" stroke="currentColor" stroke-width="2" />
+    <path d="M330 374v20l394-100v-20z" fill="url(#metal-side)" stroke="currentColor" stroke-width="2" />
+    <path d="M174 294v20l156 80v-20z" fill="#bbb8b0" stroke="currentColor" stroke-width="2" />
+
+    <!-- Füße -->
+    <path d="M205 318v39l22 11v-39M337 377v34l20-5v-34M675 292v35l20-5v-35" fill="url(#dark-metal)" stroke="currentColor" stroke-width="2" />
+
+    <!-- Linearschienen -->
+    <path d="m230 291 337-84 22 11-338 86z" fill="#22221e" stroke="currentColor" stroke-width="2" />
+    <path d="m282 318 337-85 22 12-338 85z" fill="#22221e" stroke="currentColor" stroke-width="2" />
+    <path d="m251 286 309-77 9 5-309 79zM303 312l309-77 9 5-309 79z" fill="#ff4f1f" />
+
+    <!-- Werkstückträger -->
+    <path d="m380 292 132-33 63 32-132 34z" fill="url(#metal-top)" stroke="currentColor" stroke-width="2" />
+    <path d="m443 325v28l132-34v-28z" fill="url(#metal-side)" stroke="currentColor" stroke-width="2" />
+    <path d="m380 292v28l63 33v-28z" fill="#c4c1b9" stroke="currentColor" stroke-width="2" />
+    <ellipse cx="472" cy="294" rx="35" ry="17" fill="#ff4f1f" stroke="currentColor" stroke-width="2" transform="rotate(-14 472 294)" />
+    <ellipse cx="472" cy="294" rx="17" ry="8" fill="#11110f" transform="rotate(-14 472 294)" />
+
+    <!-- Portalständer -->
+    <path d="m275 277 25-6v-151l-25 6z" fill="url(#dark-metal)" stroke="currentColor" stroke-width="2" />
+    <path d="m275 126-14-7v151l14 7z" fill="#3b3b34" stroke="currentColor" stroke-width="2" />
+    <path d="m628 189 25-6V32l-25 6z" fill="url(#dark-metal)" stroke="currentColor" stroke-width="2" />
+    <path d="m628 38-14-7v151l14 7z" fill="#3b3b34" stroke="currentColor" stroke-width="2" />
+
+    <!-- Portalbrücke -->
+    <path d="m261 119 353-88 39 20-353 89z" fill="url(#metal-top)" stroke="currentColor" stroke-width="2" />
+    <path d="m300 140v28l353-89V51z" fill="url(#metal-side)" stroke="currentColor" stroke-width="2" />
+    <path d="m261 119v28l39 21v-28z" fill="#bbb8b0" stroke="currentColor" stroke-width="2" />
+    <path d="m298 130 303-76 17 9-303 76z" fill="#11110f" />
+
+    <!-- Schlitten und Z-Achse -->
+    <g class="assembly-carriage">
+      <path d="m433 82 82-20 43 22-83 21z" fill="#ff4f1f" stroke="currentColor" stroke-width="2" />
+      <path d="m475 105v38l83-21V84z" fill="#d9350a" stroke="currentColor" stroke-width="2" />
+      <path d="m433 82v38l42 23v-38z" fill="#eb4317" stroke="currentColor" stroke-width="2" />
+      <path d="m480 124 27-7v91l-27 7z" fill="url(#dark-metal)" stroke="currentColor" stroke-width="2" />
+      <path d="m480 124-15-8v91l15 8z" fill="#3b3b34" stroke="currentColor" stroke-width="2" />
+      <path d="m465 207 43-11 28 15-44 11z" fill="url(#metal-top)" stroke="currentColor" stroke-width="2" />
+      <path d="m492 222v29l44-11v-29z" fill="url(#metal-side)" stroke="currentColor" stroke-width="2" />
+      <path d="m465 207v29l27 15v-29z" fill="#bbb8b0" stroke="currentColor" stroke-width="2" />
+      <path d="m493 251 14-4v28l-14 4z" fill="#ff4f1f" stroke="currentColor" stroke-width="2" />
+      <path d="m493 251-8-4v28l8 4z" fill="#d9350a" stroke="currentColor" stroke-width="2" />
+    </g>
+
+    <!-- Sensor und Kabel -->
+    <path d="m347 200 24-6 14 7-25 7z" fill="#ff4f1f" stroke="currentColor" stroke-width="2" />
+    <path d="m360 208v33l25-6v-34z" fill="#d9350a" stroke="currentColor" stroke-width="2" />
+    <path d="M372 217c28-11 43-4 64 8" fill="none" stroke="#11110f" stroke-width="3" stroke-dasharray="4 5" />
+
+    <!-- Sicherheitsmarkierungen -->
+    <path d="m186 296 44-11 18 9-44 11zM651 270l44-11 18 9-44 11z" fill="#ff4f1f" stroke="currentColor" stroke-width="1.5" />
+    <path d="m194 294 8-2m8-2 8-2m8-2 8-2M659 268l8-2m8-2 8-2m8-2 8-2" stroke="#11110f" stroke-width="3" />
+  </g>
+
+  <!-- Explosionsdarstellung eines Aktuators -->
+  <g class="assembly-exploded" stroke="currentColor">
+    <path d="M682 128 607 179" fill="none" stroke-dasharray="4 6" />
+    <path d="m684 96 52-13 31 16-52 14z" fill="url(#metal-top)" stroke-width="2" />
+    <path d="m715 113v34l52-13V99z" fill="url(#metal-side)" stroke-width="2" />
+    <path d="m684 96v34l31 17v-34z" fill="#bbb8b0" stroke-width="2" />
+    <circle cx="722" cy="112" r="9" fill="#ff4f1f" stroke-width="2" />
+    <path d="m650 130 25-6 15 8-25 6z" fill="#11110f" stroke-width="2" />
+    <path d="M674 132l17-4M706 118l-16 4" fill="none" stroke-width="1" stroke-dasharray="3 4" />
+  </g>
+
+  <g class="assembly-callouts" font-family="var(--mono)">
+    <g transform="translate(151 221)"><circle r="13" fill="#11110f" /><text x="0" y="4" text-anchor="middle" fill="#f3f0e8">A</text><path d="M14 0h58" stroke="currentColor" /><text x="79" y="4" fill="currentColor">LINEAR AXIS</text></g>
+    <g transform="translate(700 63)"><circle r="13" fill="#ff4f1f" /><text x="0" y="4" text-anchor="middle" fill="#11110f">B</text><path d="M-14 0h-49" stroke="currentColor" /><text x="-162" y="4" fill="currentColor">ACTUATOR</text></g>
+    <g transform="translate(594 350)"><circle r="13" fill="#11110f" /><text x="0" y="4" text-anchor="middle" fill="#f3f0e8">C</text><path d="M-14 0h-47" stroke="currentColor" /><text x="-152" y="4" fill="currentColor">FIXTURE</text></g>
+  </g>
+</svg>
+
+<style>
+  .assembly-notes,
+  .assembly-dimension-copy { font: 500 11px var(--mono); letter-spacing: .11em; }
+  .assembly-dimension-copy { font-size: 10px; }
+  .assembly-dimensions { stroke-width: 1; opacity: .72; }
+  .assembly-machine { transform-origin: 450px 245px; }
+  .assembly-carriage { animation: carriage-cycle 7s var(--ease-in-out) infinite; }
+  .assembly-exploded { animation: exploded-float 5s var(--ease-in-out) infinite; }
+  .assembly-callouts { font-size: 9px; letter-spacing: .08em; }
+
+  @keyframes carriage-cycle {
+    0%, 18%, 82%, 100% { transform: translate(0); }
+    42%, 58% { transform: translate(34px, -8px); }
+  }
+
+  @keyframes exploded-float {
+    0%, 100% { transform: translate(0); }
+    50% { transform: translate(5px, -3px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .assembly-carriage,
+    .assembly-exploded { animation: none; }
+  }
+</style>
