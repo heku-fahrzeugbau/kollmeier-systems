@@ -7,6 +7,8 @@ Persönliche Website von Robin Kollmeier für CAD-Konstruktion, Automatisierung,
 ```sh
 npm install
 npm run dev
+npm run check
+npm run test:visual
 ```
 
 ## Produktion
@@ -16,4 +18,6 @@ npm run build
 npm run preview
 ```
 
-Der statische Build wird in `dist/` erzeugt. Deployment läuft über Vercel: ein Push auf `main` geht live, Branch-Pushes erzeugen ein Preview-Deployment. Das Kontaktformular nutzt Web3Forms.
+Der statische Build wird in `dist/` erzeugt und bei IONOS bereitgestellt. Die Website basiert auf Astro 7 und Tailwind CSS 4; das Kontaktformular nutzt Web3Forms.
+
+`npm run test:visual` prüft die Startseite sowie die Rechtstexte in einem lokalen Chromium-Browser auf Desktop- und Mobile-Viewports, horizontale Überläufe, JavaScript-Fehler, Navigation und Reduced Motion. Screenshots landen lokal unter `artifacts/visual/` und werden nicht versioniert.

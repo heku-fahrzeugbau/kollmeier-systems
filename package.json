@@ -9,12 +9,20 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:content": "node scripts/check-content.mjs",
+    "check": "astro check && node scripts/check-content.mjs && npm audit --audit-level=high && node -e \"console.log('CHECKS_OK')\"",
+    "test:visual": "npm run build --silent && node scripts/test-visual.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/sitemap": "^3.7.5",
     "@tailwindcss/vite": "^4.3.1",
-    "astro": "^6.4.7",
+    "astro": "^7.4.12",
     "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "playwright-core": "^1.65.1",
+    "typescript": "^6.0.3"
   }
 }

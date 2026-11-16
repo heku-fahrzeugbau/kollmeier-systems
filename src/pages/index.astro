@@ -2,30 +2,10 @@
 import Layout from '../layouts/Layout.astro'
 
 const services = [
-  {
-    number: '01',
-    title: 'CAD & Konstruktion',
-    text: 'Fertigungsgerechte Bauteile, Baugruppen und Sonderlösungen — parametrisch aufgebaut, nachvollziehbar dokumentiert und auf die reale Produktion ausgerichtet.',
-    meta: 'SolidWorks · Fusion 360 · DFAM',
-  },
-  {
-    number: '02',
-    title: 'Automatisierung',
-    text: 'Technische Konzepte und konstruktive Umsetzung für Maschinen, Vorrichtungen und Abläufe, die wiederholbar, wartbar und wirtschaftlich funktionieren.',
-    meta: 'Konzept · Konstruktion · Prozess',
-  },
-  {
-    number: '03',
-    title: '3D-Druck & Prototyping',
-    text: 'Von der Werkstoff- und Verfahrenswahl bis zum belastbaren Prototypen. Mit Fokus auf sinnvolle Anwendungen statt 3D-Druck um jeden Preis.',
-    meta: 'FDM · Prototypen · Kleinserien',
-  },
-  {
-    number: '04',
-    title: 'Technische KI-Lösungen',
-    text: 'KI und Automatisierung für technische Workflows: Daten strukturieren, wiederkehrende Arbeit reduzieren und vorhandenes Wissen nutzbar machen.',
-    meta: 'Workflows · Integration · Beratung',
-  },
+  { number: '01', title: 'CAD & Konstruktion', text: 'Fertigungsgerechte Bauteile, Baugruppen und Sonderlösungen — parametrisch aufgebaut, nachvollziehbar dokumentiert und auf die reale Produktion ausgerichtet.', meta: ['SolidWorks', 'Fusion 360', 'DFAM'], code: 'CAD.01' },
+  { number: '02', title: 'Automatisierung', text: 'Technische Konzepte und konstruktive Umsetzung für Maschinen, Vorrichtungen und Abläufe, die wiederholbar, wartbar und wirtschaftlich funktionieren.', meta: ['Konzept', 'Konstruktion', 'Prozess'], code: 'AUT.02' },
+  { number: '03', title: '3D-Druck & Prototyping', text: 'Von der Werkstoff- und Verfahrenswahl bis zum belastbaren Prototypen. Mit Fokus auf sinnvolle Anwendungen statt 3D-Druck um jeden Preis.', meta: ['FDM', 'Prototypen', 'Kleinserien'], code: 'DFAM.03' },
+  { number: '04', title: 'Technische KI-Lösungen', text: 'KI und Automatisierung für technische Workflows: Daten strukturieren, wiederkehrende Arbeit reduzieren und vorhandenes Wissen nutzbar machen.', meta: ['Workflows', 'Integration', 'Beratung'], code: 'AI.04' },
 ]
 
 const process = [
@@ -36,646 +16,181 @@ const process = [
 ]
 ---
 
-<Layout>
-  <header class="site-header">
-    <nav class="shell nav" aria-label="Hauptnavigation">
+<Layout bodyClass="site-theme">
+  <header class="site-header" data-header>
+    <nav class="nav shell" aria-label="Hauptnavigation">
       <a href="#top" class="brand" aria-label="Kollmeier Systems Startseite">
-        <span class="brand-mark" aria-hidden="true">KS</span>
-        <span>Kollmeier Systems</span>
+        <svg class="brand-mark" viewBox="0 0 38 38" aria-hidden="true"><path d="M4 4h12v5H9v20h7v5H4zM34 4H22v5h7l-10 9 10 11h-7v5h12V29L24 18l10-9z" /></svg>
+        <span class="brand-name">Kollmeier <b>Systems</b></span>
       </a>
       <div class="nav-links" id="nav-links">
-        <a href="#leistungen">Leistungen</a>
-        <a href="#prozess">Vorgehen</a>
-        <a href="#ueber-mich">Über mich</a>
+        <a href="#leistungen"><span>01</span>Leistungen</a>
+        <a href="#prozess"><span>02</span>Vorgehen</a>
+        <a href="#ueber-mich"><span>03</span>Über mich</a>
       </div>
-      <a href="#kontakt" class="nav-cta">Projekt besprechen <span aria-hidden="true">↗</span></a>
-      <button
-        type="button"
-        class="nav-toggle"
-        id="navToggle"
-        aria-expanded="false"
-        aria-controls="nav-links"
-        aria-label="Menü öffnen"
-      >
-        <span aria-hidden="true"></span>
-      </button>
+      <a href="#kontakt" class="nav-cta">Projekt anfragen <span aria-hidden="true">↗</span></a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen"><span></span><span></span></button>
     </nav>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-ambient" aria-hidden="true">
-        <video autoplay muted loop playsinline preload="metadata" poster="/videos/hero-ambient-poster.jpg">
-          <source src="/videos/hero-ambient.webm" type="video/webm" />
-          <source src="/videos/hero-ambient.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div class="hero-veil" aria-hidden="true"></div>
-      <div class="hero-grid" aria-hidden="true"></div>
-      <div class="shell hero-layout">
+  <main id="main-content">
+    <section class="hero" id="top">
+      <div class="hero-orbit" aria-hidden="true"><span class="orbit orbit--1"></span><span class="orbit orbit--2"></span><span class="orbit orbit--3"></span></div>
+      <div class="hero-rail hero-rail--left" aria-hidden="true"><span>KS / ENGINEERING</span><i></i><span>BIELEFELD · DE</span></div>
+      <div class="hero-rail hero-rail--right" aria-hidden="true"><span>CAD</span><span>AUTOMATION</span><span>DFAM</span><span>AI</span></div>
+
+      <div class="shell hero-shell">
+        <div class="hero-kicker enter" style="--delay: 40ms"><span class="status-dot"></span><span>Engineering für konkrete Aufgaben</span><span class="hero-index">00 / KS</span></div>
         <div class="hero-copy">
-          <p class="eyebrow hero-enter" style="--enter-delay: 60ms">Engineering aus Bielefeld</p>
-          <h1 class="hero-enter" style="--enter-delay: 120ms">Aus Ideen werden <em>funktionierende</em> Systeme.</h1>
-          <p class="hero-lead hero-enter" style="--enter-delay: 190ms">
-            Konstruktion, Automatisierung und technische KI-Lösungen für Unternehmen,
-            die ein konkretes Problem sauber gelöst brauchen.
-          </p>
-          <div class="hero-actions hero-enter" style="--enter-delay: 260ms">
-            <a href="#kontakt" class="button button--signal">Projekt unverbindlich besprechen <span aria-hidden="true">↗</span></a>
+          <h1 class="enter" style="--delay: 100ms">Aus Ideen werden <span><em>funktionierende</em> Systeme.</span></h1>
+          <div class="hero-summary enter" style="--delay: 180ms">
+            <p>Konstruktion, Automatisierung und technische KI-Lösungen für Unternehmen, die ein konkretes Problem sauber gelöst brauchen.</p>
+            <a href="#kontakt" class="button button--primary">Projekt unverbindlich besprechen <span aria-hidden="true">↗</span></a>
           </div>
-          <dl class="hero-facts hero-enter" style="--enter-delay: 330ms">
-            <div><dt>Fokus</dt><dd>CAD · Automation · DFAM</dd></div>
-            <div><dt>Arbeitsweise</dt><dd>Direkt · technisch · pragmatisch</dd></div>
-          </dl>
         </div>
 
-        <div class="hero-visual hero-enter" style="--enter-delay: 200ms">
-          <div class="visual-meta"><span>FIELD / 01</span><span>SYSTEMS IN MOTION</span></div>
-          <div class="visual-frame">
-            <img
-              src="/videos/hero-ambient-poster.jpg"
-              width="1920"
-              height="1080"
-              alt="Abstrakte technische Licht- und Rasterstruktur"
-              fetchpriority="high"
-            />
-            <div class="visual-overlay"></div>
-            <div class="visual-3d" aria-hidden="true">
-              <div class="cube">
-                <span class="face face-front"></span>
-                <span class="face face-back"></span>
-                <span class="face face-right"></span>
-                <span class="face face-left"></span>
-                <span class="face face-top"></span>
-                <span class="face face-bottom"></span>
-                <span class="axis axis-x"></span>
-                <span class="axis axis-y"></span>
-                <span class="axis axis-z"></span>
-              </div>
-            </div>
-            <span class="corner corner-a" aria-hidden="true"></span>
-            <span class="corner corner-b" aria-hidden="true"></span>
-            <div class="visual-caption">
-              <span>Idee</span><i aria-hidden="true"></i><span>Entwicklung</span><i aria-hidden="true"></i><strong>Ergebnis</strong>
-            </div>
-          </div>
+        <div class="hero-machine enter" style="--delay: 220ms" data-machine aria-hidden="true">
+          <svg viewBox="0 0 900 440" role="presentation">
+            <defs>
+              <pattern id="micro-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="currentColor" stroke-width=".5" opacity=".18" /></pattern>
+              <linearGradient id="plate" x1="0" x2="1"><stop stop-color="#fbf9f2" /><stop offset="1" stop-color="#eae7df" /></linearGradient>
+            </defs>
+            <rect width="900" height="440" fill="url(#micro-grid)" />
+            <g class="drawing-lines" fill="none" stroke="currentColor"><path d="M52 330h164l76-154h276l73 154h207" /><path d="M216 330h432M292 176l-41-82M568 176l43-82" /><circle cx="430" cy="252" r="116" /><circle cx="430" cy="252" r="64" /><circle cx="430" cy="252" r="13" /><path d="M430 108v288M286 252h288" stroke-dasharray="5 8" /></g>
+            <g class="machine-part"><path d="M360 136h140l48 72-38 133H350l-38-133z" fill="url(#plate)" stroke="currentColor" stroke-width="2" /><circle cx="430" cy="252" r="74" fill="#ff4f1f" stroke="currentColor" stroke-width="2" /><circle cx="430" cy="252" r="43" fill="#11110f" /><path d="M430 218v68M396 252h68" stroke="#f5f2ea" stroke-width="2" /></g>
+            <g class="dimension-lines" fill="none" stroke="currentColor" stroke-width="1"><path d="M312 115h236M312 104v22M548 104v22" /><path d="M672 176v154M661 176h22M661 330h22" /></g>
+            <g class="drawing-copy" fill="currentColor"><text x="372" y="94">236.00</text><text x="691" y="258" transform="rotate(90 691 258)">154.00</text><text x="52" y="64">SYSTEM / KINEMATIC UNIT</text><text x="768" y="398">DWG—001</text></g>
+          </svg>
+          <div class="machine-label machine-label--a"><span>A</span> Parametrisch</div>
+          <div class="machine-label machine-label--b"><span>B</span> Fertigungsgerecht</div>
+          <div class="machine-readout"><span>READY</span><b>01</b></div>
         </div>
-      </div>
-      <div class="shell hero-strip hero-enter" style="--enter-delay: 400ms" aria-label="Qualifikationen">
-        <span>M.Sc. Wirtschaftsingenieurwesen</span>
-        <span>B.Eng. Elektrotechnik</span>
-        <span>Zertifizierter KI-Manager</span>
+
+        <div class="hero-credentials enter" style="--delay: 300ms" aria-label="Qualifikationen"><span>M.Sc. Wirtschaftsingenieurwesen</span><span>B.Eng. Elektrotechnik</span><span>Zertifizierter KI-Manager</span></div>
       </div>
     </section>
 
-    <section id="leistungen" class="paper-section services-section">
+    <section id="leistungen" class="section services">
       <div class="shell">
-        <div class="section-intro reveal-item" data-reveal>
-          <div>
-            <p class="eyebrow">Leistungen</p>
-            <h2 class="section-title">Technik ohne Umwege.</h2>
-          </div>
-          <p class="section-copy">
-            Ich unterstütze dort, wo Konstruktion, Fertigung und digitale Werkzeuge zusammenkommen —
-            vom ersten Konzept bis zu einer Lösung, die im Alltag Bestand hat.
-          </p>
+        <div class="section-heading reveal" data-reveal>
+          <p class="section-label"><span>01</span> Leistungsfelder</p>
+          <h2>Technik ohne <em>Umwege.</em></h2>
+          <p>Ich unterstütze dort, wo Konstruktion, Fertigung und digitale Werkzeuge zusammenkommen — vom ersten Konzept bis zu einer Lösung, die im Alltag Bestand hat.</p>
         </div>
-
         <div class="service-list">
           {services.map((service, index) => (
-            <article class="service-row reveal-item" data-reveal style={`--reveal-delay: ${index * 70}ms`}>
-              <span class="service-number">{service.number}</span>
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-              <span class="service-meta">{service.meta}</span>
+            <article class="service-card reveal" data-reveal style={`--delay: ${index * 60}ms`}>
+              <div class="service-top"><span>{service.number}</span><code>{service.code}</code></div>
+              <h3>{service.title}</h3><p>{service.text}</p>
+              <ul aria-label={`Schwerpunkte ${service.title}`}>{service.meta.map((item) => <li>{item}</li>)}</ul>
+              <span class="service-cross" aria-hidden="true"></span>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="prozess" class="paper-section process-section">
-      <div class="shell process-layout">
-        <div class="process-copy reveal-item" data-reveal>
-          <p class="eyebrow">Vorgehen</p>
-          <h2 class="section-title">Ein klarer Weg vom Problem zur Lösung.</h2>
-          <p class="section-copy">
-            Keine aufgeblähten Workshops. Wir klären zuerst, was wirklich gebraucht wird,
-            und arbeiten dann in nachvollziehbaren Schritten auf ein nutzbares Ergebnis hin.
-          </p>
+    <section class="statement" aria-label="Arbeitsweise">
+      <div class="statement-track" aria-hidden="true"><span>KONSTRUIEREN · PRÜFEN · VERBESSERN ·</span><span>KONSTRUIEREN · PRÜFEN · VERBESSERN ·</span></div>
+      <div class="shell statement-copy reveal" data-reveal><span class="section-label"><span>KS</span> Prinzip</span><p>Nicht mehr Technik als nötig.<br /><em>Aber so viel Präzision wie erforderlich.</em></p></div>
+    </section>
+
+    <section id="prozess" class="section process">
+      <div class="shell process-grid">
+        <div class="process-intro reveal" data-reveal>
+          <p class="section-label"><span>02</span> Vorgehen</p><h2>Vom Problem zur belastbaren Lösung.</h2>
+          <p>Keine aufgeblähten Workshops. Wir klären zuerst, was wirklich gebraucht wird, und arbeiten dann in nachvollziehbaren Schritten auf ein nutzbares Ergebnis hin.</p>
+          <div class="process-meter" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
         </div>
         <ol class="process-list">
           {process.map(([number, title, text], index) => (
-            <li class="reveal-item" data-reveal style={`--reveal-delay: ${index * 70}ms`}>
-              <span>{number}</span>
-              <div><h3>{title}</h3><p>{text}</p></div>
-            </li>
+            <li class="reveal" data-reveal style={`--delay: ${index * 60}ms`}><span class="process-number">{number}</span><div><h3>{title}</h3><p>{text}</p></div><span class="process-arrow" aria-hidden="true">↘</span></li>
           ))}
         </ol>
       </div>
     </section>
 
-    <section id="ueber-mich" class="about-section">
-      <div class="shell about-layout">
-        <div class="about-statement reveal-item" data-reveal>
-          <p class="eyebrow">Über mich</p>
-          <h2>Ingenieurdenken trifft digitale Werkzeuge.</h2>
-        </div>
-        <div class="about-copy reveal-item" data-reveal style="--reveal-delay: 110ms">
+    <section id="ueber-mich" class="section about">
+      <div class="shell about-grid">
+        <div class="about-title reveal" data-reveal><p class="section-label"><span>03</span> Über mich</p><h2>Ingenieurdenken trifft digitale Werkzeuge.</h2></div>
+        <div class="about-body reveal" data-reveal style="--delay: 80ms">
           <p class="about-lead">Ich bin Robin Kollmeier, Wirtschaftsingenieur und Elektrotechniker aus Bielefeld.</p>
-          <p>
-            Mein Schwerpunkt liegt dort, wo technische Entwicklung praktisch werden muss:
-            in CAD-Modellen, Maschinenkonzepten, Prototypen und automatisierten Abläufen.
-            Moderne KI-Werkzeuge setze ich gezielt ein — als Verstärker guter Prozesse, nicht als Selbstzweck.
-          </p>
-          <div class="about-credentials">
-            <div><span>01</span><strong>M.Sc. Wirtschaftsingenieurwesen</strong><small>CAD · Design for Additive Manufacturing</small></div>
-            <div><span>02</span><strong>B.Eng. Elektrotechnik</strong><small>Schwerpunkt Automatisierungstechnik</small></div>
-            <div><span>03</span><strong>Zertifizierter KI-Manager</strong><small>Technische Prozesse · KI-Integration</small></div>
-          </div>
+          <p>Mein Schwerpunkt liegt dort, wo technische Entwicklung praktisch werden muss: in CAD-Modellen, Maschinenkonzepten, Prototypen und automatisierten Abläufen. Moderne KI-Werkzeuge setze ich gezielt ein — als Verstärker guter Prozesse, nicht als Selbstzweck.</p>
+          <dl class="credentials">
+            <div><dt>01</dt><dd><strong>M.Sc. Wirtschaftsingenieurwesen</strong><span>CAD · Design for Additive Manufacturing</span></dd></div>
+            <div><dt>02</dt><dd><strong>B.Eng. Elektrotechnik</strong><span>Schwerpunkt Automatisierungstechnik</span></dd></div>
+            <div><dt>03</dt><dd><strong>Zertifizierter KI-Manager</strong><span>Technische Prozesse · KI-Integration</span></dd></div>
+          </dl>
         </div>
       </div>
     </section>
 
-    <section id="kontakt" class="contact-section">
-      <div class="shell contact-layout">
-        <div class="contact-copy reveal-item" data-reveal>
-          <p class="eyebrow">Kontakt</p>
-          <h2>Welches technische Problem soll als Nächstes gelöst werden?</h2>
+    <section id="kontakt" class="contact">
+      <div class="contact-grid" aria-hidden="true"></div>
+      <div class="shell contact-grid-layout">
+        <div class="contact-copy reveal" data-reveal>
+          <p class="section-label section-label--light"><span>04</span> Kontakt</p><h2>Welches technische Problem soll als Nächstes gelöst werden?</h2>
           <p>Ein paar Stichpunkte reichen für den Anfang. Ich melde mich persönlich und kläre mit dir, ob und wie ich sinnvoll unterstützen kann.</p>
-          <div class="contact-direct">
-            <span>Direkter Kontakt</span>
-            <a href="mailto:kollmeier.robin@gmail.com">kollmeier.robin@gmail.com</a>
-            <small>Bielefeld · Deutschland</small>
-          </div>
+          <div class="direct-contact"><span>Direkter Kontakt</span><a href="mailto:kollmeier.robin@gmail.com">kollmeier.robin@gmail.com <b aria-hidden="true">↗</b></a><small>Bielefeld · Deutschland</small></div>
         </div>
 
-        <form
-          action="https://api.web3forms.com/submit"
-          method="POST"
-          enctype="multipart/form-data"
-          id="contactForm"
-          class="contact-form reveal-item"
-          data-reveal
-          style="--reveal-delay: 120ms"
-        >
-          <input type="hidden" name="access_key" value="8ac66527-f806-40c3-ae77-5fd812fc2e50" />
-          <input type="hidden" name="subject" value="Neue Projektanfrage – Kollmeier Systems" />
-          <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" />
-
-          <div class="form-grid">
-            <label><span>Name *</span><input type="text" name="name" required autocomplete="name" placeholder="Vor- und Nachname" /></label>
-            <label><span>E-Mail *</span><input type="email" name="email" required autocomplete="email" placeholder="name@unternehmen.de" /></label>
-          </div>
-          <label><span>Worum geht es?</span><input type="text" name="betreff" placeholder="z. B. CAD-Konstruktion oder Automatisierung" /></label>
-          <label><span>Kurze Projektbeschreibung *</span><textarea name="message" rows="6" required placeholder="Ausgangslage, Ziel und gewünschter Zeitrahmen …"></textarea></label>
-          <label class="file-field">
-            <span>Anhang (optional)</span>
-            <span class="file-button"><b id="fileLabel">Datei auswählen</b><small>PDF, PNG, JPG, STEP, DXF oder DWG · max. 25 MB</small></span>
-            <input id="attachment" type="file" name="attachment" accept=".pdf,.png,.jpg,.jpeg,.step,.stp,.dxf,.dwg" />
-          </label>
-          <div class="form-footer">
-            <p>Mit dem Absenden bestätigst du, die <a href="/datenschutz">Datenschutzerklärung</a> gelesen zu haben.</p>
-            <button type="submit" class="button button--signal" id="submitButton">Anfrage senden <span aria-hidden="true">↗</span></button>
-          </div>
-          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+        <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" id="contact-form" class="contact-form reveal" data-reveal style="--delay: 100ms">
+          <input type="hidden" name="access_key" value="8ac66527-f806-40c3-ae77-5fd812fc2e50" /><input type="hidden" name="subject" value="Neue Projektanfrage – Kollmeier Systems" /><input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" />
+          <div class="form-row"><label><span>01 / Name *</span><input type="text" name="name" required autocomplete="name" placeholder="Vor- und Nachname" /></label><label><span>02 / E-Mail *</span><input type="email" name="email" required autocomplete="email" placeholder="name@unternehmen.de" /></label></div>
+          <label><span>03 / Worum geht es?</span><input type="text" name="betreff" placeholder="z. B. CAD-Konstruktion oder Automatisierung" /></label>
+          <label><span>04 / Kurze Projektbeschreibung *</span><textarea name="message" rows="5" required placeholder="Ausgangslage, Ziel und gewünschter Zeitrahmen …"></textarea></label>
+          <label class="file-field"><span>05 / Anhang (optional)</span><span class="file-control"><b id="file-label">Datei auswählen</b><small>PDF, PNG, JPG, STEP, DXF oder DWG · max. 25 MB</small><i aria-hidden="true">＋</i></span><input id="attachment" type="file" name="attachment" accept=".pdf,.png,.jpg,.jpeg,.step,.stp,.dxf,.dwg" /></label>
+          <div class="form-actions"><p>Mit dem Absenden bestätigst du, die <a href="/datenschutz">Datenschutzerklärung</a> gelesen zu haben.</p><button type="submit" class="button button--contact" id="submit-button">Anfrage senden <span aria-hidden="true">↗</span></button></div>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="shell footer-grid">
-      <a href="#top" class="brand"><span class="brand-mark" aria-hidden="true">KS</span><span>Kollmeier Systems</span></a>
-      <p>Technische Lösungen, klar entwickelt.</p>
-      <div><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
-      <small>© {new Date().getFullYear()} Robin Kollmeier</small>
-    </div>
-  </footer>
+  <footer class="site-footer"><div class="shell footer-grid"><a href="#top" class="brand brand--footer"><svg class="brand-mark" viewBox="0 0 38 38" aria-hidden="true"><path d="M4 4h12v5H9v20h7v5H4zM34 4H22v5h7l-10 9 10 11h-7v5h12V29L24 18l10-9z" /></svg><span class="brand-name">Kollmeier <b>Systems</b></span></a><p>Technische Lösungen, klar entwickelt.</p><div class="footer-links"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div><small>© {new Date().getFullYear()} Robin Kollmeier</small><a class="back-top" href="#top">Nach oben <span aria-hidden="true">↑</span></a></div></footer>
 
   <script>
-    const form = document.querySelector<HTMLFormElement>('#contactForm')
-    const fileInput = document.querySelector<HTMLInputElement>('#attachment')
-    const fileLabel = document.querySelector<HTMLElement>('#fileLabel')
-    const status = document.querySelector<HTMLElement>('#formStatus')
-    const submitButton = document.querySelector<HTMLButtonElement>('#submitButton')
-
-    fileInput?.addEventListener('change', () => {
-      if (fileLabel) fileLabel.textContent = fileInput.files?.[0]?.name || 'Datei auswählen'
-    })
-
-    form?.addEventListener('submit', async (event) => {
-      event.preventDefault()
-      if (!status || !submitButton) return
-
-      submitButton.disabled = true
-      submitButton.textContent = 'Wird gesendet …'
-      status.textContent = ''
-
-      try {
-        const response = await fetch(form.action, { method: 'POST', body: new FormData(form) })
-        const result = await response.json()
-        if (!response.ok || !result.success) throw new Error('Formular konnte nicht gesendet werden')
-
-        form.reset()
-        if (fileLabel) fileLabel.textContent = 'Datei auswählen'
-        status.textContent = 'Danke — deine Anfrage wurde gesendet. Ich melde mich persönlich.'
-        status.dataset.state = 'success'
-      } catch {
-        status.textContent = 'Das Senden hat nicht geklappt. Bitte nutze alternativ die E-Mail-Adresse links.'
-        status.dataset.state = 'error'
-      } finally {
-        submitButton.disabled = false
-        submitButton.innerHTML = 'Anfrage senden <span aria-hidden="true">↗</span>'
-      }
-    })
+    const header = document.querySelector<HTMLElement>('[data-header]')
+    const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle')
+    const navLinks = document.querySelector<HTMLElement>('#nav-links')
+    const setMenu = (open: boolean) => { navToggle?.setAttribute('aria-expanded', String(open)); navToggle?.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen'); header?.toggleAttribute('data-menu-open', open); document.body.classList.toggle('menu-open', open) }
+    navToggle?.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'))
+    navLinks?.addEventListener('click', (event) => { if ((event.target as HTMLElement).closest('a')) setMenu(false) })
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') { setMenu(false); navToggle.focus() } })
+    window.matchMedia('(min-width: 901px)').addEventListener('change', (event) => event.matches && setMenu(false))
+    const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 24)
+    updateHeader(); window.addEventListener('scroll', updateHeader, { passive: true })
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     const revealItems = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
-
     if (!reducedMotion.matches && 'IntersectionObserver' in window) {
-      document.documentElement.classList.add('motion-enabled')
-      const revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return
-            entry.target.classList.add('is-visible')
-            revealObserver.unobserve(entry.target)
-          })
-        },
-        { threshold: 0.14, rootMargin: '0px 0px -8% 0px' },
-      )
-      revealItems.forEach((item) => revealObserver.observe(item))
-    } else {
-      revealItems.forEach((item) => item.classList.add('is-visible'))
+      document.documentElement.classList.add('motion-ready')
+      const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (!entry.isIntersecting) return; entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }) }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
+      revealItems.forEach((item) => observer.observe(item))
+    } else revealItems.forEach((item) => item.classList.add('is-visible'))
+
+    const machine = document.querySelector<HTMLElement>('[data-machine]')
+    if (machine && !reducedMotion.matches && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      let frame = 0
+      machine.addEventListener('pointermove', (event) => { if (frame) return; frame = requestAnimationFrame(() => { frame = 0; const rect = machine.getBoundingClientRect(); machine.style.setProperty('--mx', `${((event.clientX - rect.left) / rect.width - .5) * 8}px`); machine.style.setProperty('--my', `${((event.clientY - rect.top) / rect.height - .5) * 8}px`) }) })
+      machine.addEventListener('pointerleave', () => { machine.style.setProperty('--mx', '0px'); machine.style.setProperty('--my', '0px') })
     }
 
-    const siteHeader = document.querySelector<HTMLElement>('.site-header')
-    const updateHeader = () => siteHeader?.classList.toggle('is-scrolled', window.scrollY > 18)
-    updateHeader()
-    window.addEventListener('scroll', updateHeader, { passive: true })
-
-    const navToggle = document.querySelector<HTMLButtonElement>('#navToggle')
-    const navLinks = document.querySelector<HTMLElement>('#nav-links')
-
-    const setMenu = (open: boolean) => {
-      if (!siteHeader || !navToggle) return
-      navToggle.setAttribute('aria-expanded', String(open))
-      navToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen')
-      siteHeader.toggleAttribute('data-menu-open', open)
-    }
-
-    navToggle?.addEventListener('click', () => {
-      setMenu(navToggle.getAttribute('aria-expanded') !== 'true')
+    const form = document.querySelector<HTMLFormElement>('#contact-form')
+    const fileInput = document.querySelector<HTMLInputElement>('#attachment')
+    const fileLabel = document.querySelector<HTMLElement>('#file-label')
+    const status = document.querySelector<HTMLElement>('#form-status')
+    const submitButton = document.querySelector<HTMLButtonElement>('#submit-button')
+    fileInput?.addEventListener('change', () => { if (fileLabel) fileLabel.textContent = fileInput.files?.[0]?.name || 'Datei auswählen' })
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault(); if (!status || !submitButton) return
+      submitButton.disabled = true; submitButton.textContent = 'Wird gesendet …'; status.textContent = ''; status.removeAttribute('data-state')
+      try {
+        const response = await fetch(form.action, { method: 'POST', body: new FormData(form) }); const result = await response.json()
+        if (!response.ok || !result.success) throw new Error('Formular konnte nicht gesendet werden')
+        form.reset(); if (fileLabel) fileLabel.textContent = 'Datei auswählen'; status.textContent = 'Danke — deine Anfrage wurde gesendet. Ich melde mich persönlich.'; status.dataset.state = 'success'
+      } catch { status.textContent = 'Das Senden hat nicht geklappt. Bitte nutze alternativ die E-Mail-Adresse links.'; status.dataset.state = 'error' }
+      finally { submitButton.disabled = false; submitButton.innerHTML = 'Anfrage senden <span aria-hidden="true">↗</span>' }
     })
-
-    navLinks?.addEventListener('click', (event) => {
-      if ((event.target as HTMLElement).closest('a')) setMenu(false)
-    })
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape') return
-      if (navToggle?.getAttribute('aria-expanded') !== 'true') return
-      setMenu(false)
-      navToggle.focus()
-    })
-
-    // Menü schließen, wenn der Breakpoint zurück auf Desktop wechselt
-    const desktopNav = window.matchMedia('(min-width: 981px)')
-    desktopNav.addEventListener('change', (event) => {
-      if (event.matches) setMenu(false)
-    })
-
-    const hero = document.querySelector<HTMLElement>('.hero')
-    const visualFrame = document.querySelector<HTMLElement>('.visual-frame')
-    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
-
-    if (hero && visualFrame && finePointer.matches && !reducedMotion.matches) {
-      // Auf einen Frame pro Repaint gedrosselt statt bei jedem Pointer-Event zu schreiben
-      let pending = 0
-      hero.addEventListener('pointermove', (event) => {
-        if (pending) return
-        pending = requestAnimationFrame(() => {
-          pending = 0
-          const bounds = hero.getBoundingClientRect()
-          const x = (event.clientX - bounds.left) / bounds.width - 0.5
-          const y = (event.clientY - bounds.top) / bounds.height - 0.5
-          visualFrame.style.setProperty('--tilt-x', `${x * 2.4}deg`)
-          visualFrame.style.setProperty('--tilt-y', `${y * -2.4}deg`)
-        })
-      })
-      hero.addEventListener('pointerleave', () => {
-        visualFrame.style.setProperty('--tilt-x', '0deg')
-        visualFrame.style.setProperty('--tilt-y', '0deg')
-      })
-    }
-
-    // Video und 3D-Würfel anhalten, sobald der Hero aus dem Viewport ist — spart Akku und GPU
-    const heroVideo = document.querySelector<HTMLVideoElement>('.hero-ambient video')
-    const cube = document.querySelector<HTMLElement>('.cube')
-    if (hero && 'IntersectionObserver' in window) {
-      new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) heroVideo?.play().catch(() => {})
-          else heroVideo?.pause()
-          if (cube) cube.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'
-        },
-        { threshold: 0 },
-      ).observe(hero)
-    }
   </script>
 </Layout>
-
-<style>
-  .site-header { position: fixed; inset: 0 0 auto; z-index: 50; border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(0,0,0,.58); backdrop-filter: blur(18px); transition: background-color var(--dur-enter) var(--ease-out), border-color var(--dur-enter) var(--ease-out), box-shadow var(--dur-enter) var(--ease-out); }
-  .site-header.is-scrolled { border-color: rgba(255,255,255,.13); background: rgba(0,0,0,.84); box-shadow: 0 12px 40px rgba(0,0,0,.18); }
-  .nav { min-height: 4.5rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem; }
-  .brand { display: inline-flex; align-items: center; gap: .7rem; width: max-content; padding-block: .6rem; font-size: .88rem; font-weight: 700; letter-spacing: -.02em; }
-  .brand-mark { display: grid; width: 2rem; aspect-ratio: 1; place-items: center; border: 1px solid #65707c; font-family: Consolas, monospace; font-size: .75rem; }
-  .nav-links { display: flex; align-items: center; gap: 1.7rem; color: #aab0b8; font-size: .82rem; }
-  .nav-links a { padding-block: .8rem; transition: color var(--dur-hover) var(--ease-out); }
-  .nav-cta { justify-self: end; padding-block: .8rem; color: var(--signal); font-size: .82rem; font-weight: 700; transition: color var(--dur-hover) var(--ease-out); }
-  .nav-cta:active { color: #ff8c6d; }
-  .nav-toggle { display: none; }
-
-  @media (hover: hover) and (pointer: fine) {
-    .nav-links a:hover { color: white; }
-    .nav-cta:hover { color: #ff8c6d; }
-  }
-
-  .hero { position: relative; min-height: 100svh; overflow: hidden; padding-top: 4.5rem; isolation: isolate; }
-  /* Kein deckendes Poster mehr: das Video liegt bei 22% über dem Sternenfeld. */
-  .hero-ambient { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-  .hero-ambient video { width: 100%; height: 100%; object-fit: cover; opacity: .22; filter: saturate(.72) contrast(1.08); transform: scale(1.04); }
-  /* Nur noch so viel Schleier, wie der Text zum Lesen braucht. */
-  .hero-veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(0,0,0,.58) 0%, rgba(0,0,0,.28) 46%, rgba(0,0,0,.06) 100%), linear-gradient(0deg, rgba(0,0,0,.52) 0%, transparent 46%); }
-  .hero-grid { position: absolute; inset: -5rem; z-index: 2; opacity: .14; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 5rem 5rem; mask-image: linear-gradient(to bottom, black, transparent 82%); animation: grid-drift 42s linear infinite; }
-  .hero-layout { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(0,1.08fr) minmax(360px,.92fr); align-items: center; gap: clamp(2rem,6vw,6rem); min-height: calc(100svh - 9rem); padding-block: 5rem 3rem; }
-  .hero-enter { opacity: 0; animation: hero-enter .6s var(--ease-out) forwards; animation-delay: var(--enter-delay, 0ms); }
-  /*
-    Obergrenze 6.5rem statt 7.7rem: "funktionierende" ist in Georgia Italic rund
-    6,0x so breit wie die Schriftgröße und damit breiter als die Hero-Spalte. Es ragt
-    bewusst in die Rasterlücke, lief bei 1920px aber 59px unter das rechte Panel.
-  */
-  .hero-copy h1 { max-width: 760px; margin: 1.2rem 0 1.5rem; color: #f6f7f8; font-size: clamp(3.55rem,7.2vw,6.5rem); font-weight: 700; letter-spacing: -.048em; line-height: .94; }
-  .hero-copy h1 em { color: var(--signal); font-family: Georgia, serif; font-weight: 400; }
-  .hero-lead { max-width: 620px; color: #a5abb3; font-size: clamp(1.05rem,1.7vw,1.32rem); line-height: 1.65; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2.3rem; }
-  .hero-facts { display: flex; gap: 2.5rem; margin: 3rem 0 0; }
-  .hero-facts div { padding-left: .8rem; border-left: 1px solid #39414a; }
-  .hero-facts dt { color: #747d88; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
-  .hero-facts dd { margin: .35rem 0 0; color: #d7dbe0; font-size: .82rem; }
-  .hero-visual { min-width: 0; }
-  .visual-meta { display: flex; justify-content: space-between; margin-bottom: .7rem; color: #7f8791; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .13em; }
-  .visual-frame { position: relative; overflow: hidden; aspect-ratio: .83; border: 1px solid var(--hairline); background: rgba(20,24,32,.55); backdrop-filter: blur(10px); clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem)); transform: perspective(1100px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)); transition: transform .28s var(--ease-out), border-color var(--dur-hover) var(--ease-out); }
-  .visual-frame img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.68) contrast(1.1); transform: scale(1.04); }
-  .visual-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(0,0,0,.04), rgba(0,0,0,.55)); }
-
-  /*
-    Drahtgitter-Würfel in CSS-3D. Reine transform-Animation, damit sie auf der GPU
-    läuft; --cube steuert Kantenlänge und Tiefenversatz gemeinsam.
-  */
-  /* --cube muss eine absolute Länge sein: translateZ() akzeptiert keine Prozentwerte */
-  .visual-3d { position: absolute; inset: 0; display: grid; place-items: center; perspective: 900px; --cube: 10rem; }
-  .cube { position: relative; width: var(--cube); height: var(--cube); transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(-28deg); animation: cube-spin 32s linear infinite; }
-  .cube .face { position: absolute; inset: 0; border: 1px solid rgba(150,168,190,.32); background-image: linear-gradient(rgba(150,168,190,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(150,168,190,.07) 1px, transparent 1px); background-size: 25% 25%; }
-  .face-front  { transform: translateZ(calc(var(--cube) / 2)); border-color: rgba(255,96,56,.55); }
-  .face-back   { transform: rotateY(180deg) translateZ(calc(var(--cube) / 2)); }
-  .face-right  { transform: rotateY(90deg) translateZ(calc(var(--cube) / 2)); }
-  .face-left   { transform: rotateY(-90deg) translateZ(calc(var(--cube) / 2)); }
-  .face-top    { transform: rotateX(90deg) translateZ(calc(var(--cube) / 2)); }
-  .face-bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube) / 2)); }
-  /* Achsenkreuz durch den Mittelpunkt — liest sich wie ein CAD-Ursprung */
-  .cube .axis { position: absolute; top: 50%; left: 50%; background: rgba(255,96,56,.42); }
-  .axis-x { width: calc(var(--cube) * 1.5); height: 1px; transform: translate(-50%, -50%); }
-  .axis-y { width: 1px; height: calc(var(--cube) * 1.5); transform: translate(-50%, -50%); }
-  .axis-z { width: calc(var(--cube) * 1.5); height: 1px; transform: translate(-50%, -50%) rotateY(90deg); }
-
-  @keyframes cube-spin {
-    from { transform: rotateX(-24deg) rotateY(-28deg); }
-    to   { transform: rotateX(-24deg) rotateY(332deg); }
-  }
-  .corner { position: absolute; width: 2rem; height: 2rem; border-color: var(--signal); }
-  .corner-a { top: 1.25rem; left: 1.25rem; border-top: 1px solid; border-left: 1px solid; }
-  .corner-b { right: 1.25rem; bottom: 1.25rem; border-right: 1px solid; border-bottom: 1px solid; }
-  .visual-caption { position: absolute; inset: auto 1.5rem 1.5rem; display: flex; align-items: center; gap: .65rem; padding: .85rem; background: rgba(0,0,0,.62); backdrop-filter: blur(12px); color: #b6bdc6; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
-  .visual-caption i { flex: 1; height: 1px; background: #565f69; }
-  .visual-caption strong { color: var(--signal); font-weight: 700; }
-  .hero-strip { position: relative; z-index: 3; display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-top: 1px solid var(--hairline); color: #7f8791; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; }
-
-  /* Früher creme. Liegt jetzt wie alles andere direkt auf dem Sternenfeld —
-     der Klassenname bleibt, damit die Markup-Struktur unverändert bleibt. */
-  .paper-section { color: #edf0f3; }
-  .services-section { padding: clamp(6rem,11vw,10rem) 0; }
-  .section-intro { display: grid; grid-template-columns: 1.1fr .9fr; align-items: end; gap: 4rem; margin-bottom: 5rem; }
-  .service-list { border-top: 1px solid var(--line-light); }
-  .service-row { display: grid; grid-template-columns: 4rem 1fr 1.3fr .8fr; gap: 2rem; align-items: start; padding: 2rem 0; border-bottom: 1px solid var(--line-light); }
-  .service-number, .service-meta { font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
-  .service-number { color: var(--signal); }
-  .service-row h3 { margin: 0; font-size: clamp(1.25rem,2vw,1.65rem); letter-spacing: -.035em; transition: color var(--dur-hover) var(--ease-out), translate var(--dur-hover) var(--ease-out); }
-  .service-row p { margin: 0; color: #9aa2ac; line-height: 1.65; }
-  .service-meta { color: #8b939d; line-height: 1.6; }
-
-  @media (hover: hover) and (pointer: fine) {
-    .service-row:hover h3 { color: var(--signal); translate: .35rem 0; }
-    .visual-frame:hover { border-color: #596573; }
-  }
-
-  .process-section { padding: clamp(6rem,11vw,10rem) 0; }
-  .process-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(3rem,9vw,9rem); }
-  .process-copy { position: sticky; top: 8rem; align-self: start; }
-  .process-copy .section-copy { margin-top: 2rem; }
-  .process-list { margin: 0; padding: 0; border-top: 1px solid var(--line-light); list-style: none; }
-  .process-list li { display: grid; grid-template-columns: 3.5rem 1fr; gap: 1rem; padding: 2rem 0; border-bottom: 1px solid var(--line-light); }
-  .process-list > li > span { color: var(--signal); font-family: Consolas, monospace; font-size: .8rem; }
-  .process-list h3 { margin: 0 0 .5rem; font-size: 1.45rem; letter-spacing: -.035em; }
-  .process-list p { max-width: 560px; margin: 0; color: #9aa2ac; line-height: 1.65; }
-
-  /* Früher blueprint-blaue Fläche. Das Blau lebt jetzt nur noch im Akzent. */
-  .about-section { padding: clamp(6rem,11vw,10rem) 0; overflow: hidden; color: #edf0f3; }
-  .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,9vw,9rem); }
-  /*
-    1fr heißt minmax(auto, 1fr), und das auto-Minimum ist die Min-Content-Breite.
-    Ein Wort wie "Ingenieurdenken" ist damit breiter als die Spalte, sprengt das
-    Grid und wird vom overflow:hidden der Section rechts abgeschnitten.
-  */
-  .about-layout > *, .contact-layout > *, .section-intro > *, .process-layout > * { min-width: 0; }
-  .about-statement h2, .contact-copy h2 { hyphens: auto; overflow-wrap: break-word; }
-  .about-section .eyebrow { color: var(--blueprint); }
-  .about-statement h2 { margin: 1rem 0 0; font-size: clamp(3rem,6vw,6.5rem); letter-spacing: -.046em; line-height: .95; }
-  .about-lead { margin-top: 0; font-size: clamp(1.4rem,2.5vw,2rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.25; }
-  .about-copy > p:not(.about-lead) { max-width: 620px; line-height: 1.7; }
-  .about-credentials { margin-top: 3rem; border-top: 1px solid var(--hairline); }
-  .about-credentials div { display: grid; grid-template-columns: 2rem 1fr; gap: .2rem 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--hairline); }
-  .about-credentials span { grid-row: 1 / 3; font-family: Consolas, monospace; font-size: .75rem; }
-  .about-credentials strong { font-size: .95rem; }
-  .about-credentials small { font-size: .82rem; opacity: .78; }
-
-  .contact-section { padding: clamp(6rem,11vw,10rem) 0; }
-  .contact-layout { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(3rem,9vw,9rem); }
-  .contact-copy h2 { margin: 1rem 0 1.5rem; color: white; font-size: clamp(2.8rem,5vw,5.5rem); letter-spacing: -.045em; line-height: .98; }
-  .contact-copy > p { max-width: 520px; color: #929aa4; line-height: 1.65; }
-  .contact-direct { display: flex; flex-direction: column; align-items: flex-start; gap: .35rem; margin-top: 3rem; }
-  .contact-direct span { color: #747d89; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
-  .contact-direct a { margin-top: .35rem; padding-block: .6rem; color: var(--signal); font-size: 1.05rem; font-weight: 700; }
-  .contact-direct small { color: #747d89; font-size: .82rem; }
-  .contact-form { padding: clamp(1.25rem,4vw,2.5rem); border: 1px solid var(--hairline); background: var(--glass); backdrop-filter: blur(12px); }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .contact-form label { display: block; margin-bottom: 1.1rem; }
-  .contact-form label > span:first-child { display: block; margin-bottom: .55rem; color: #a1a9b3; font-family: Consolas, monospace; font-size: .75rem; letter-spacing: .09em; text-transform: uppercase; }
-  .contact-form input, .contact-form textarea { width: 100%; border: 1px solid rgba(255,255,255,.14); border-radius: 0; background: rgba(0,0,0,.38); color: white; padding: .95rem 1rem; transition: border-color var(--dur-hover) var(--ease-out); }
-  .contact-form textarea { min-height: 160px; resize: vertical; }
-  .contact-form input::placeholder, .contact-form textarea::placeholder { color: #777f89; }
-  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--signal); }
-  /* Sichtbarer Fokusring statt nur 1px Rahmenfarbe — sonst ist Tastaturfokus kaum erkennbar */
-  .contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
-  .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
-  .file-field input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-  .file-button { display: flex; flex-direction: column; gap: .2rem; padding: 1rem; border: 1px dashed #46505c; cursor: pointer; transition: border-color var(--dur-hover) var(--ease-out), transform var(--dur-press) var(--ease-out); }
-  .file-field:focus-within .file-button { border-color: var(--signal); outline: 2px solid var(--signal); outline-offset: 2px; }
-  .file-button b { color: #dce0e5; font-size: .85rem; }
-  .file-button small { color: #79828d; font-size: .78rem; }
-  .form-footer { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.5rem; }
-  .form-footer p { max-width: 330px; margin: 0; color: #79828d; font-size: .78rem; line-height: 1.5; }
-
-  @media (hover: hover) and (pointer: fine) {
-    .file-button:hover { border-color: var(--signal); }
-  }
-  .file-field:active .file-button { transform: scale(.99); }
-  .form-footer p a { text-decoration: underline; text-underline-offset: 2px; }
-  .form-footer button { flex: 0 0 auto; cursor: pointer; }
-  .form-footer button:disabled { opacity: .55; cursor: wait; }
-  .form-status { min-height: 1.3rem; margin: 1rem 0 0; font-size: .82rem; }
-  .form-status[data-state='success'] { color: #8ed9a5; }
-  .form-status[data-state='error'] { color: #ff9a7f; }
-
-  .site-footer { padding: 2.5rem 0; border-top: 1px solid var(--hairline); }
-  .footer-grid { display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 1rem; color: #858e99; font-size: .8rem; }
-  .footer-grid p { text-align: center; }
-  .footer-grid > div { display: flex; gap: 1.5rem; justify-self: end; }
-  .footer-grid > div a { padding-block: .8rem; transition: color var(--dur-hover) var(--ease-out); }
-  .footer-grid small { grid-column: 1 / -1; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.08); color: #757d87; font-size: .8rem; }
-
-  @media (hover: hover) and (pointer: fine) {
-    .footer-grid > div a:hover { color: #dfe3e8; }
-  }
-
-  .motion-enabled [data-reveal] { opacity: 0; translate: 0 1.6rem; transition: opacity var(--dur-reveal) var(--ease-out), translate var(--dur-reveal) var(--ease-out); transition-delay: var(--reveal-delay, 0ms); }
-  .motion-enabled [data-reveal].is-visible { opacity: 1; translate: 0 0; }
-  /* Auf Touch-Geräten ist backdrop-filter über einem animierten Canvas teuer.
-     Dort werden die Glasflächen deckend statt unscharf. */
-  @media (pointer: coarse) {
-    .contact-form, .visual-frame { backdrop-filter: none; background: #0d1117; }
-  }
-
-  @keyframes hero-enter {
-    from { opacity: 0; transform: translateY(1.5rem); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes grid-drift {
-    to { transform: translate3d(5rem, 5rem, 0); }
-  }
-  @media (max-width: 980px) {
-    .nav { grid-template-columns: 1fr auto auto; }
-
-    /* Ab hier wird aus der Linkzeile ein aufklappbares Panel — vorher fiel die Navigation ersatzlos weg */
-    .nav-links {
-      position: fixed;
-      inset: 4.5rem 0 auto;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      padding: .5rem 0 1rem;
-      border-bottom: 1px solid rgba(255,255,255,.13);
-      background: rgba(0,0,0,.97);
-      backdrop-filter: blur(18px);
-      font-size: 1rem;
-      opacity: 0;
-      translate: 0 -.5rem;
-      visibility: hidden;
-      transition: opacity var(--dur-enter) var(--ease-out), translate var(--dur-enter) var(--ease-out), visibility 0s linear var(--dur-enter);
-    }
-    .nav-links a { padding: .95rem 1.25rem; }
-    .site-header[data-menu-open] .nav-links {
-      opacity: 1;
-      translate: 0 0;
-      visibility: visible;
-      transition-delay: 0s;
-    }
-
-    .nav-toggle {
-      display: grid;
-      place-items: center;
-      width: 2.75rem;
-      height: 2.75rem;
-      padding: 0;
-      border: 1px solid #3a414a;
-      background: transparent;
-      color: #e6e9ed;
-      cursor: pointer;
-      transition: border-color var(--dur-hover) var(--ease-out), transform var(--dur-press) var(--ease-out);
-    }
-    .nav-toggle:active { transform: scale(.94); }
-    .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
-      display: block;
-      width: 1.05rem;
-      height: 1px;
-      background: currentColor;
-      transition: translate var(--dur-enter) var(--ease-out), rotate var(--dur-enter) var(--ease-out), background-color var(--dur-enter) var(--ease-out);
-    }
-    .nav-toggle span { position: relative; }
-    .nav-toggle span::before, .nav-toggle span::after { position: absolute; left: 0; content: ''; }
-    .nav-toggle span::before { translate: 0 -.32rem; }
-    .nav-toggle span::after { translate: 0 .32rem; }
-    /* Mittlerer Balken wird transparent statt opacity:0 — sonst würde die Gruppe die Pseudoelemente mit ausblenden */
-    .nav-toggle[aria-expanded='true'] span { background: transparent; }
-    .nav-toggle[aria-expanded='true'] span::before { translate: 0 0; rotate: 45deg; }
-    .nav-toggle[aria-expanded='true'] span::after { translate: 0 0; rotate: -45deg; }
-
-    .hero-layout { grid-template-columns: 1fr .72fr; }
-    .hero-copy h1 { font-size: clamp(3.8rem,9vw,6rem); }
-    .service-row { grid-template-columns: 3rem 1fr 1.4fr; }
-    .service-meta { grid-column: 2 / -1; }
-    .contact-layout { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 720px) {
-    .nav { min-height: 4rem; }
-    /* Header ist hier 4rem hoch — das Panel muss bündig darunter ansetzen */
-    .nav-links { inset: 4rem 0 auto; }
-    .nav-cta { padding-block: .9rem; font-size: .78rem; }
-    .brand > span:last-child { display: none; }
-    .hero { padding-top: 4rem; }
-    .hero-layout { display: block; min-height: auto; padding-block: 5rem 2rem; }
-    /*
-      17vw ließ "funktionierende" 383px breit in einer 355px-Spalte rendern —
-      overflow:hidden am Hero hat das Wort rechts gekappt. 14.5vw passt bis 320px runter.
-    */
-    /* hyphens nur als Notnagel unter 320px — bei 375px passt die Zeile ohne Trennung */
-    .hero-copy h1 { font-size: clamp(2.75rem,14vw,5rem); letter-spacing: -.055em; hyphens: auto; }
-    .hero-actions { flex-direction: column; align-items: stretch; }
-    .hero-facts { flex-direction: column; gap: 1rem; }
-    .hero-visual { margin-top: 4rem; }
-    .visual-frame { aspect-ratio: 1.1; }
-    .visual-3d { --cube: 7rem; }
-    .hero-strip { flex-direction: column; }
-    .section-intro, .process-layout, .about-layout { grid-template-columns: 1fr; gap: 2rem; }
-    .service-row { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
-    .service-row p, .service-meta { grid-column: 2; }
-    .process-copy { position: static; }
-    .about-statement h2 { font-size: clamp(2.6rem,12.5vw,5rem); }
-    .form-grid { grid-template-columns: 1fr; gap: 0; }
-    .form-footer { align-items: stretch; flex-direction: column; }
-    .footer-grid { grid-template-columns: 1fr auto; }
-    .footer-grid p { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-ambient video { display: none; }
-    /* Würfel bleibt stehen — die statische Isometrie aus der Basisregel wirkt weiterhin bewusst gesetzt */
-    .hero-grid, .hero-enter, .cube { animation: none !important; }
-    .hero-enter, .motion-enabled [data-reveal] { opacity: 1; translate: 0 0; transform: none; }
-    .visual-frame { transform: none !important; }
-    /* Menü blendet weiter ein/aus — nur die Bewegung fällt weg */
-    .nav-links { translate: 0 0 !important; }
-  }
-</style>
