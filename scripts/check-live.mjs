@@ -1,5 +1,3 @@
-import { readFile } from 'node:fs/promises'
-
 const baseUrl = 'https://kollmeier-systems.de'
 const headers = { 'cache-control': 'no-cache', pragma: 'no-cache' }
 
@@ -7,11 +5,19 @@ const page = await fetch(`${baseUrl}/?verify=${Date.now()}`, { headers, redirect
 if (!page.ok) throw new Error(`Startseite antwortet mit HTTP ${page.status}`)
 
 const html = await page.text()
-const localHtml = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8')
-const localCss = localHtml.match(/href="([^"?]+\.css)"/)?.[1]
-if (!localCss) throw new Error('Lokaler CSS-Build konnte nicht bestimmt werden')
-if (!html.includes(localCss)) {
-  throw new Error(`Die Live-Seite verwendet noch nicht den aktuellen CSS-Build (${localCss})`)
+const liveCssPath = html.match(/href="([^"?]+\.css)"/)?.[1]
+if (!liveCssPath) throw new Error('Live-CSS konnte nicht bestimmt werden')
+
+const cssResponse = await fetch(`${baseUrl}${liveCssPath}?verify=${Date.now()}`, { headers })
+if (!cssResponse.ok) throw new Error(`Live-CSS antwortet mit HTTP ${cssResponse.status}`)
+const liveCss = await cssResponse.text()
+const expectedStyles = [
+  'gap:clamp(4rem,8vw,8rem)',
+  'max-width:100%',
+  'font-size:clamp(4rem,7vw,6.4rem)',
+]
+if (!expectedStyles.every((style) => liveCss.includes(style))) {
+  throw new Error('Die Korrektur gegen die Überlappung ist im Live-CSS noch nicht vollständig enthalten')
 }
 if (!html.includes('/images/industrial-robotics.jpg')) {
   throw new Error('Das neue Hero-Bild ist auf der Live-Seite noch nicht eingebunden')
