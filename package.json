@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "check:content": "node scripts/check-content.mjs",
+    "check:live": "node scripts/check-live.mjs",
     "check": "astro check && node scripts/check-content.mjs && npm audit --audit-level=high && node -e \"console.log('CHECKS_OK')\"",
     "test:visual": "npm run build --silent && node scripts/test-visual.mjs"
   },
