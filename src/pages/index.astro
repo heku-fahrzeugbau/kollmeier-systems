@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import EngineeringAssembly from '../components/EngineeringAssembly.astro'
 
 const services = [
   { number: '01', title: 'CAD & Konstruktion', text: 'Fertigungsgerechte Bauteile, Baugruppen und Sonderlösungen — parametrisch aufgebaut, nachvollziehbar dokumentiert und auf die reale Produktion ausgerichtet.', meta: ['SolidWorks', 'Fusion 360', 'DFAM'], code: 'CAD.01' },
@@ -50,12 +49,22 @@ const process = [
           </div>
         </div>
 
-        <div class="hero-machine enter" style="--delay: 220ms" data-machine aria-hidden="true">
-          <EngineeringAssembly />
-          <div class="machine-label machine-label--a"><span>A</span> Systementwurf</div>
-          <div class="machine-label machine-label--b"><span>B</span> Automatisiert</div>
+        <figure class="hero-machine enter" style="--delay: 220ms" data-machine>
+          <img
+            src="/images/industrial-robotics.jpg"
+            width="1800"
+            height="1200"
+            alt="Orange Industrieroboter an einer automatisierten Fertigungslinie"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <div class="machine-scan" aria-hidden="true"></div>
+          <div class="machine-label machine-label--a"><span>A</span> Automation</div>
+          <div class="machine-label machine-label--b"><span>B</span> Fertigung</div>
           <div class="machine-readout"><span>READY</span><b>01</b></div>
-        </div>
+          <figcaption>Industrial automation / reference field</figcaption>
+        </figure>
 
         <div class="hero-credentials enter" style="--delay: 300ms" aria-label="Qualifikationen"><span>M.Sc. Wirtschaftsingenieurwesen</span><span>B.Eng. Elektrotechnik</span><span>Zertifizierter KI-Manager</span></div>
       </div>
