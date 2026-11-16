@@ -140,9 +140,9 @@ img, svg { display: block; max-width: 100%; }
 .process-arrow { color: var(--signal); font-size: 1.5rem; }
 
 .about { background: var(--paper-2); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(4rem, 10vw, 11rem); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(4rem, 8vw, 8rem); }
 .about-grid > * { min-width: 0; }
-.about-title h2 { margin: 2.5rem 0 0; max-width: 780px; font-size: clamp(4rem, 7vw, 8rem); line-height: .88; letter-spacing: -.07em; }
+.about-title h2 { margin: 2.5rem 0 0; max-width: 100%; font-size: clamp(4rem, 7vw, 6.4rem); line-height: .88; letter-spacing: -.07em; }
 .about-body { padding-top: 3.2rem; }
 .about-body > p { color: var(--muted); line-height: 1.7; }
 .about-body .about-lead { margin-top: 0; color: var(--ink); font-size: clamp(1.5rem, 2.25vw, 2.5rem); line-height: 1.25; letter-spacing: -.035em; }

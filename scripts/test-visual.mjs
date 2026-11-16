@@ -48,6 +48,7 @@ const errors = []
 try {
   await waitForServer()
   const profiles = [
+    { name: 'wide', viewport: { width: 2560, height: 1440 } },
     { name: 'desktop', viewport: { width: 1440, height: 1000 } },
     { name: 'mobile', viewport: { width: 390, height: 844 } },
   ]
@@ -76,6 +77,16 @@ try {
     await page.getByRole('heading', { name: /Aus Ideen werden/ }).waitFor()
     await page.getByRole('heading', { name: 'CAD & Konstruktion' }).waitFor()
     await page.getByRole('heading', { name: /Welches technische Problem/ }).waitFor()
+
+    if (profile.name === 'wide') {
+      const titleBox = await page.locator('.about-title h2').boundingBox()
+      const bodyBox = await page.locator('.about-body').boundingBox()
+      const titleMetrics = await page.locator('.about-title h2').evaluate((element) => ({ scrollWidth: element.scrollWidth, clientWidth: element.clientWidth }))
+      const titleOverflow = titleMetrics.scrollWidth > titleMetrics.clientWidth + 1
+      if (!titleBox || !bodyBox || titleOverflow || titleBox.x + titleBox.width > bodyBox.x - 1) {
+        errors.push(`wide: Über-mich-Überschrift überschneidet die Textspalte (${titleMetrics.scrollWidth}/${titleMetrics.clientWidth})`)
+      }
+    }
 
     if (profile.name === 'mobile') {
       const toggle = page.locator('#nav-toggle')
